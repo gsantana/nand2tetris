@@ -1,0 +1,9 @@
+
+CHIP And3Way {
+    IN a, b, c;
+    OUT out;
+
+    PARTS:
+    And(a=a, b=b, out=outand1);
+    And(a=outand1, b=c, out=out);
+}

@@ -1,0 +1,35 @@
+
+CHIP Control {
+    IN j1, j2, j3, zr, ng, op;
+    OUT inc, load;
+
+    PARTS:
+    Not(in=j1,out=notj1);
+    Not(in=j2,out=notj2);
+    Not(in=j3,out=notj3);
+    Not(in=zr,out=notzr);
+    Not(in=ng,out=notng);
+
+    And5Way(a=notj1, b=notj2, c=j3, d=notzr, e=notng, out=and1);
+    And5Way(a=j1, b=notj2, c=notj3, d=notzr, e=ng, out=and2);
+    And5Way(a=j1, b=notj2, c=j3, d=notzr, e=notng, out=and3);
+    And5Way(a=j1, b=notj2, c=j3, d=notzr, e=ng, out=and4);
+    And5Way(a=notj1, b=j2, c=notj3, d=zr, e=notng, out=and5);
+    And5Way(a=notj1, b=j2, c=notj3, d=zr, e=ng, out=and6);
+    And5Way(a=notj1, b=j2, c=j3, d=notzr, e=notng, out=and7);
+    And5Way(a=notj1, b=j2, c=j3, d=zr, e=notng, out=and8);
+    And5Way(a=notj1, b=j2, c=j3, d=zr, e=ng, out=and9);
+    And5Way(a=j1, b=j2, c=notj3, d=notzr, e=ng, out=and10);
+    And5Way(a=j1, b=j2, c=notj3, d=zr, e=notng, out=and11);
+    And5Way(a=j1, b=j2, c=notj3, d=zr, e=ng, out=and12);
+    And5Way(a=j1, b=j2, c=j3, d=notzr, e=notng, out=and13);
+    And5Way(a=j1, b=j2, c=j3, d=notzr, e=ng, out=and14);
+    And5Way(a=j1, b=j2, c=j3, d=zr, e=notng, out=and15);
+    And5Way(a=j1, b=j2, c=j3, d=zr, e=ng, out=and16);
+
+
+    Or16Way(a1=and1,a2=and2,a3=and3,a4=and4,a5=and5,a6=and6,a7=and7,a8=and8,a9=and9,a10=and10,a11=and11,a12=and12,a13=and13,a14=and14,a15=and15,a16=and16,out=outOr16);
+    And(a=op, b=outOr16, out=load,out=outload);
+    Not(in=outload,out=inc);
+
+}

@@ -1,0 +1,13 @@
+n1 = R0
+n2 = R1
+sum = 0
+
+LOOP:
+ if n2 = 0 goto STOP
+    sum = sum + n1
+    n2 = n2 - 1
+    goto LOOP
+
+ STOP:
+   R2 = sum
+
