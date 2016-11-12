@@ -4,19 +4,70 @@ require  'pry-byebug'
 class Assembler
 
   def self.compile path
-    parser = Parser.new path
-    while line = parser.next_line
+
+    lexer = Lexer.new path
+    parser = Parser.new lexer
+
+    parser.first_pass
+
+    asts = parser.generate_asts
+
+    storage = Storage.new path, asts
+    storage.write
+  end
+
+end
+
+
+class Storage
+
+  attr_reader :binary_file, :asts
+
+  def initialize path, asts
+    filename = File.basename(path)
+    @binary_file = "#{filename.gsub(".asm",'')}.hack"
+    @asts = asts
+  end
+
+  def delete
+    File.delete(binary_file) if File.exist?(binary_file)
+  end
+
+  def write
+    delete
+
+    File.open(binary_file, 'a') do |f|
+      asts.lines.each do |l|
+        f.puts l.code
+        puts l.code
+      end
+    end
+  end
+end
+
+class Parser
+
+  attr_reader :lexer
+
+  def initialize lexer
+    @lexer = lexer
+  end
+
+  def first_pass
+    while line = lexer.next_line
       if LabelExpression.is_a? line
         ex = LabelExpression.new line
         SymbolTable.add_label ex.label, ex.line_number
       end
     end
+  end
 
-    parser.reset
+  def generate_asts
+    lexer.reset
 
     ast  = AST.new
 
-    while line = parser.next_line
+    while line = lexer.next_line
       if AExpression.is_a? line
         ast.add AExpression.new line
       elsif CExpression.is_a? line
@@ -28,18 +79,7 @@ class Assembler
 
     end
 
-    filename = File.basename(path)
-    binary_file = "#{filename.gsub(".asm",'')}.hack"
-
-    File.delete(binary_file) if File.exist?(binary_file)
-
-    File.open(binary_file, 'a') do |f|
-      ast.lines.each do |l|
-        f.puts l.code
-        puts l.code
-      end
-    end
-
+    ast
   end
 end
 
@@ -281,7 +321,7 @@ class SymbolTable
 
 end
 
-class Parser
+class Lexer
 
   attr_reader :lines, :bklines
 
