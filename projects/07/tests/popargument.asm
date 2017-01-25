@@ -1,0 +1,12 @@
+@1
+D=A
+@ARG
+D=D+M
+@stackvalue
+M=D
+@SP
+M=M-1
+A=M
+D=M
+@stackvalue
+M=D
