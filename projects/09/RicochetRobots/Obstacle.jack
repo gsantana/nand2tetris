@@ -1,0 +1,53 @@
+class Obstacle {
+
+  field int x, y;
+  field int side;
+
+  constructor Obstacle new(int Ax, int Ay, int Aside) {
+    let x = Ax;
+    let y = Ay;
+    let side = Aside;
+    do draw();
+    return this;
+  }
+
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   method void draw() {
+      var int location;
+      let location = ((x - 1) * 16 * 32) + (y + 15) ;
+      if(side = 1){
+        do drawObstacle(location, 1, 1, 1, -2);
+      }
+
+      if(side = 0){
+        do drawObstacle(location, -1, 0, 0, 1);
+      }
+      return;
+   }
+
+   method void drawObstacle(int location, int first, int middle, int last, int mask) {
+     var int memAddress;
+     let memAddress = 16384+location;
+      do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & mask) | first);
+      do Memory.poke(memAddress+32,(Memory.peek(memAddress+32) & mask) | middle);
+      do Memory.poke(memAddress+64,(Memory.peek(memAddress+64) & mask) | middle);
+      do Memory.poke(memAddress+96, (Memory.peek(memAddress+96) & mask) | middle);
+      do Memory.poke(memAddress+128,(Memory.peek(memAddress+128) & mask) | middle);
+      do Memory.poke(memAddress+160,(Memory.peek(memAddress+160) & mask) | middle);
+      do Memory.poke(memAddress+192,(Memory.peek(memAddress+192) & mask) | middle);
+      do Memory.poke(memAddress+224,(Memory.peek(memAddress+224) & mask) | middle);
+      do Memory.poke(memAddress+256,(Memory.peek(memAddress+256) & mask) | middle);
+      do Memory.poke(memAddress+288,(Memory.peek(memAddress+288) & mask) | middle);
+      do Memory.poke(memAddress+320,(Memory.peek(memAddress+320) & mask) | middle);
+      do Memory.poke(memAddress+352,(Memory.peek(memAddress+352) & mask) | middle);
+      do Memory.poke(memAddress+384,(Memory.peek(memAddress+384) & mask) | middle);
+      do Memory.poke(memAddress+416,(Memory.peek(memAddress+416) & mask) | middle);
+      do Memory.poke(memAddress+448,(Memory.peek(memAddress+448) & mask) | middle);
+      do Memory.poke(memAddress+480,(Memory.peek(memAddress+480) & mask) | last);
+     return;
+   }
+}

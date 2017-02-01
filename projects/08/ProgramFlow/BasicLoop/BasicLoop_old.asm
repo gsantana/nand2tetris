@@ -6,21 +6,21 @@ A=M
 M=D
 @SP
 M=M+1
-//pop local 0         
+//pop local 0         // initializes sum = 0
 @0
 D=A
 @LCL
 D=D+M
-@R13
+@stackvalue
 M=D
 @SP
 M=M-1
 A=M
 D=M
-@R13
+@stackvalue
 A=M
 M=D
-//BasicLoop
+//label LOOP_START
 (LOOP_START)
 //push argument 0    
 @0
@@ -44,7 +44,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["add"]
+//add
 @SP
 M=M-1
 A=M
@@ -55,18 +55,18 @@ A=M
 M=M+D
 @SP
 M=M+1
-//pop local 0	        
+//pop local 0	        // sum = sum + counter
 @0
 D=A
 @LCL
 D=D+M
-@R13
+@stackvalue
 M=D
 @SP
 M=M-1
 A=M
 D=M
-@R13
+@stackvalue
 A=M
 M=D
 //push argument 0
@@ -88,7 +88,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["sub"]
+//sub
 @SP
 M=M-1
 A=M
@@ -99,18 +99,18 @@ A=M
 M=M-D
 @SP
 M=M+1
-//pop argument 0      
+//pop argument 0      // counter--
 @0
 D=A
 @ARG
 D=D+M
-@R13
+@stackvalue
 M=D
 @SP
 M=M-1
 A=M
 D=M
-@R13
+@stackvalue
 A=M
 M=D
 //push argument 0
@@ -124,7 +124,7 @@ A=M
 M=D
 @SP
 M=M+1
-//BasicLoop
+//if-goto LOOP_START  // If counter > 0, goto LOOP_START
 @SP
 M=M-1
 A=M

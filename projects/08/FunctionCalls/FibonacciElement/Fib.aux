@@ -1,0 +1,22 @@
+    0   0  function Sys.init 0
+    1   1  push constant 4
+    2   2  call Main.fibonacci 1   // computes the 4'th fibonacci element
+63  3   3  label WHILE goto WHILE              // loops infinitely
+65  4   0  function Main.fibonacci 0
+    5   1  push argument 0
+    6   2  push constant 2
+    7   3  lt                     // checks if n<2
+110 8   4  if-goto IF_TRUE
+    9   5  goto IF_FALSE
+    10  6  label IF_TRUE  push argument 0        // if n<2, return n
+    11  7  return
+171 12  8  label IF_FALSE   push argument 0      // if n>=2, returns fib(n-2)+fib(n-1)
+    13  9  push constant 2
+    14  10 sub
+247 15  11 call Main.fibonacci 1  // computes fib(n-2)
+    16  12 push argument 0
+    17  13 push constant 1
+    18  14 sub
+    19  15 call Main.fibonacci 1  // computes fib(n-1)
+    20  16 add                    // returns fib(n-1) + fib(n-2)
+    21  17 return

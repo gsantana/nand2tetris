@@ -1,0 +1,36 @@
+0   function Class2.set 0
+1   push argument 0
+2   pop static 0
+3   push argument 1
+4   pop static 1
+5   push constant 0
+6   return
+7   function Class2.get 0
+8   push static 0
+9   push static 1
+10  sub
+11  return
+0   function Sys.init 0
+1   push constant 6
+2   push constant 8
+3   call Class1.set 2
+4   pop temp 0 // Dumps the return value
+5   push constant 23
+6   push constant 15
+7   call Class2.set 2
+8   pop temp 0 // Dumps the return value
+9   call Class1.get 0
+10  call Class2.get 0
+11  label WHILE   goto WHILE
+0   function Class1.set 0
+1   push argument 0
+2   pop static 0
+3   push argument 1
+4   pop static 1
+5   push constant 0
+6   return
+7   function Class1.get 0
+8   push static 0
+9   push static 1
+10  sub
+11 return
