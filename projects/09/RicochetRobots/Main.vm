@@ -1,29 +1,12 @@
-function Main.main 4
-push constant 1
-push constant 1
-push constant 1
-call Obstacle.new 3
+function Main.main 1
+call RicochetRobotsGame.new 0
 pop local 0
-push constant 1
-push constant 1
-push constant 0
-call Obstacle.new 3
-pop local 1
-push constant 1
-push constant 16
-push constant 1
-call Obstacle.new 3
-pop local 0
-push constant 16
-push constant 16
-push constant 1
-call Obstacle.new 3
-pop local 1
-push constant 16
-push constant 1
-push constant 1
-call Obstacle.new 3
-pop local 1
+push local 0
+call RicochetRobotsGame.run 1
+pop temp 0
+push local 0
+call RicochetRobotsGame.dispose 1
+pop temp 0
 push constant 0
 return
 function Main.drawRobot1 1
@@ -744,33 +727,6 @@ push constant 480
 add
 push constant 0
 call Memory.poke 2
-pop temp 0
-push constant 0
-return
-function Main.drawVerticalLine 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push argument 0
-push constant 1
-push constant 1
-push constant 1
-call Main.drawObstacle 4
-pop temp 0
-push constant 0
-return
-function Main.drawHorizontalLine 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push argument 0
-push constant 1
-neg
-push constant 0
-push constant 0
-call Main.drawObstacle 4
 pop temp 0
 push constant 0
 return

@@ -37,7 +37,7 @@ add
 add
 pop local 0
 push this 2
-push constant 1
+push constant 3
 eq
 if-goto IF_TRUE0
 goto IF_FALSE0

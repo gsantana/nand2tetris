@@ -19,7 +19,7 @@ class Obstacle {
    method void draw() {
       var int location;
       let location = ((x - 1) * 16 * 32) + (y + 15) ;
-      if(side = 1){
+      if(side = 3){
         do drawObstacle(location, 1, 1, 1, -2);
       }
 

@@ -1,6 +1,73 @@
 class RicochetRobotsGame {
+
+  field Array obstacles;
+  field Array robots;
+  field Target target;
+
   constructor RicochetRobotsGame new() {
+    do Screen.drawLine(256,0,256,255);
+    let obstacles = Array.new(50);
+    let obstacles[0] = Obstacle.new(1,3,3);
+    let obstacles[1] = Obstacle.new(1,13,3);
+    let obstacles[2] = Obstacle.new(2,4,0);
+    let obstacles[3] = Obstacle.new(2,4,3);
+    let obstacles[4] = Obstacle.new(2,11,3);
+    let obstacles[5] = Obstacle.new(3,10,0);
+    let obstacles[6] = Obstacle.new(4,8,3);
+    let obstacles[7] = Obstacle.new(4,12,3);
+    let obstacles[8] = Obstacle.new(4,16,0);
+    let obstacles[9] = Obstacle.new(5,2,3);
+    let obstacles[10] = Obstacle.new(5,7,0);
+    let obstacles[11] = Obstacle.new(5,12,0);
+    let obstacles[12] = Obstacle.new(6,2,0);
+    let obstacles[13] = Obstacle.new(6,15,0);
+    let obstacles[14] = Obstacle.new(6,15,3);
+    let obstacles[15] = Obstacle.new(7,5,0);
+    let obstacles[16] = Obstacle.new(7,6,3);
+    let obstacles[17] = Obstacle.new(7,11,0);
+    let obstacles[18] = Obstacle.new(7,12,3);
+    let obstacles[19] = Obstacle.new(8,1,0);
+    let obstacles[20] = Obstacle.new(8,8,0);
+    let obstacles[21] = Obstacle.new(8,8,3);
+    let obstacles[22] = Obstacle.new(8,9,0);
+    let obstacles[23] = Obstacle.new(8,10,3);
+    let obstacles[24] = Obstacle.new(8,15,0);
+    let obstacles[25] = Obstacle.new(8,15,3);
+    let obstacles[26] = Obstacle.new(9,8,3);
+    let obstacles[27] = Obstacle.new(9,10,3);
+    let obstacles[28] = Obstacle.new(10,8,0);
+    let obstacles[29] = Obstacle.new(10,9,0);
+    let obstacles[30] = Obstacle.new(11,6,3);
+    let obstacles[31] = Obstacle.new(11,12,0);
+    let obstacles[32] = Obstacle.new(11,12,3);
+    let obstacles[33] = Obstacle.new(12,2,3);
+    let obstacles[34] = Obstacle.new(12,2,0);
+    let obstacles[35] = Obstacle.new(12,6,0);
+    let obstacles[36] = Obstacle.new(12,14,3);
+    let obstacles[37] = Obstacle.new(13,7,0);
+    let obstacles[38] = Obstacle.new(13,8,3);
+    let obstacles[39] = Obstacle.new(13,11,0);
+    let obstacles[40] = Obstacle.new(13,12,3);
+    let obstacles[41] = Obstacle.new(13,14,0);
+    let obstacles[42] = Obstacle.new(13,16,0);
+    let obstacles[43] = Obstacle.new(14,14,3);
+    let obstacles[44] = Obstacle.new(15,1,0);
+    let obstacles[45] = Obstacle.new(15,5,3);
+    let obstacles[46] = Obstacle.new(15,13,0);
+    let obstacles[47] = Obstacle.new(16,4,0);
+    let obstacles[48] = Obstacle.new(16,7,3);
+    let obstacles[49] = Obstacle.new(16,11,3);
+
+    let robots = Array.new(5);
+    let robots[0] = Robot.new(3,4,1);
+    let robots[1] = Robot.new(9,2,2);
+    let robots[2] = Robot.new(10,3,3);
+    let robots[3] = Robot.new(10,5,4);
+    let robots[4] = Robot.new(14,10,5);
+
+    let target = Target.new(12,14);
     return this;
+
   }
 
    /** Disposes this game. */

@@ -11,16 +11,28 @@ class Main {
      // do Main.drawT(25);
      // do Screen.drawLine(256,0,256,255);
 
-    /*  var RicochetRobotsGame game;
+      var RicochetRobotsGame game;
       let game = RicochetRobotsGame.new();
       do game.run();
-      do game.dispose();*/
-      var Obstacle ob, obc, abd, abs;
-      let ob = Obstacle.new(1,1,1);
-      let obc = Obstacle.new(1,1,0);
-      let ob = Obstacle.new(1,16,1);
+      do game.dispose();
+
+
+      //var Obstacle ob, obc, abd, abs;
+      //var Robot r1, r2, r3, r4, r5;
+
+      /*var Target t;
+      let t = Target.new(9,9);
+      let ob = Obstacle.new(1,1,0);
+      //let obc = Obstacle.new(1,1,0);
+      let ob = Obstacle.new(1,16,3);
       let obc = Obstacle.new(16,16,1);
-      let obc = Obstacle.new(16,1,1);
+      let obc = Obstacle.new(16,1,2);
+
+      let r1 = Robot.new(2,3,1);
+      let r2 = Robot.new(10,3,2);
+      let r3 = Robot.new(6,5,3);
+      let r4 = Robot.new(4,7,4);
+      let r5 = Robot.new(16,5,5); */
       return;
     }
 
@@ -107,7 +119,7 @@ class Main {
       do Memory.poke(memAddress+352, 20482);
       do Memory.poke(memAddress+384, 20482);
       do Memory.poke(memAddress+416, 16386);
-      do Memory.poke(memAddress+448, 32766);
+     do Memory.poke(memAddress+448, 32766);
       do Memory.poke(memAddress+480, 0);
       return;
     }
@@ -175,19 +187,6 @@ class Main {
       do Memory.poke(memAddress+416, 24582);
       do Memory.poke(memAddress+448, 32766);
       do Memory.poke(memAddress+480, 0);
-      return;
-    }
-    function void drawVerticalLine(int location) {
-      var int memAddress;
-      let memAddress = 16384+location;
-      do Main.drawObstacle(location, 1, 1, 1);
-      return;
-    }
-
-    function void drawHorizontalLine(int location) {
-      var int memAddress;
-      let memAddress = 16384+location;
-      do Main.drawObstacle(location, -1, 0, 0);
       return;
     }
 
