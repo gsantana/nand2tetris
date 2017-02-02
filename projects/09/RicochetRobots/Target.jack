@@ -19,22 +19,20 @@ class Target{
      var int memAddress;
      let location = ((x - 1) * 16 * 32) + (y + 15) ;
      let memAddress = 16384+location;
-     do Memory.poke(memAddress+0, 0);
-     do Memory.poke(memAddress+32, 24582);
-     do Memory.poke(memAddress+64, 16386);
-     do Memory.poke(memAddress+96, 4104);
-     do Memory.poke(memAddress+128, 2064);
-     do Memory.poke(memAddress+160, 1056);
-     do Memory.poke(memAddress+192, 576);
-     do Memory.poke(memAddress+224, 384);
-     do Memory.poke(memAddress+256, 384);
-     do Memory.poke(memAddress+288, 576);
-     do Memory.poke(memAddress+320, 1056);
-     do Memory.poke(memAddress+352, 2064);
-     do Memory.poke(memAddress+384, 4104);
-     do Memory.poke(memAddress+416, 16386);
-     do Memory.poke(memAddress+448, 24582);
-     do Memory.poke(memAddress+480, 0);
+     do Memory.poke(memAddress+32,(Memory.peek(memAddress+32) & 32767) | 24582);
+     do Memory.poke(memAddress+64,(Memory.peek(memAddress+64) & 32767) | 16386);
+     do Memory.poke(memAddress+96,(Memory.peek(memAddress+96) & 32767) | 4104);
+     do Memory.poke(memAddress+128,(Memory.peek(memAddress+128) & 32767) | 2064);
+     do Memory.poke(memAddress+160,(Memory.peek(memAddress+160) & 32767) | 1056);
+     do Memory.poke(memAddress+192,(Memory.peek(memAddress+192) & 32767) | 576);
+     do Memory.poke(memAddress+224,(Memory.peek(memAddress+224) & 32767) | 384);
+     do Memory.poke(memAddress+256,(Memory.peek(memAddress+256) & 32767) | 384);
+     do Memory.poke(memAddress+288,(Memory.peek(memAddress+288) & 32767) | 576);
+     do Memory.poke(memAddress+320,(Memory.peek(memAddress+320) & 32767) | 1056);
+     do Memory.poke(memAddress+352,(Memory.peek(memAddress+352) & 32767) | 2064);
+     do Memory.poke(memAddress+384,(Memory.peek(memAddress+384) & 32767) | 4104);
+     do Memory.poke(memAddress+416,(Memory.peek(memAddress+416) & 32767) | 16386);
+     do Memory.poke(memAddress+448,(Memory.peek(memAddress+448) & 32767) | 24582);
      return;
    }
 

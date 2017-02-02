@@ -16,6 +16,14 @@ class Obstacle {
       return;
    }
 
+   method int getx(){
+     return x;
+   }
+
+   method int gety(){
+     return y;
+   }
+
    method void draw() {
       var int location;
       let location = ((x - 1) * 16 * 32) + (y + 15) ;
@@ -27,6 +35,42 @@ class Obstacle {
         do drawObstacle(location, -1, 0, 0, 1);
       }
       return;
+   }
+
+   method boolean  hit(Robot robot, char key) {
+        var int rx, ry;
+        let rx = robot.getnextx(key);
+        let ry = robot.getnexty(key);
+//        if((x=2) & (y=4)){
+//       do Output.printString("x");
+//       do Output.printInt(x);
+//       do Output.println();
+//       do Output.printString("y");
+//       do Output.printInt(y);
+//       do Output.println();
+//       do Output.printString("ax");
+//       do Output.printInt(ax);
+//       do Output.println();
+//       do Output.printString("ay");
+//       do Output.printInt(ay);
+//       do Output.println();
+//       do Output.printString("key");
+//       do Output.printInt(key);
+//       do Output.println();
+//       }
+
+      if((x = rx) & (y = (ry + 1)) & (side = 3)){
+        if(key=130){ return true; }
+      }
+
+      if((x = (rx + 1)) & (y = ry) & (side = 0)){
+        if((key=131)){ return true; }
+      }
+
+      if((x = rx) & (y = ry)){
+        if((key=132 & (side = 3)) | ((key=133) & (side = 0))){return true;}
+      }
+      return false;
    }
 
    method void drawObstacle(int location, int first, int middle, int last, int mask) {
