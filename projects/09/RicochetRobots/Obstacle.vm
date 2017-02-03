@@ -13,6 +13,39 @@ call Obstacle.draw 1
 pop temp 0
 push pointer 0
 return
+function Obstacle.hitWall 0
+push argument 0
+push argument 1
+call Robot.getnextx 2
+push constant 0
+eq
+push argument 0
+push argument 1
+call Robot.getnextx 2
+push constant 17
+eq
+or
+push argument 0
+push argument 1
+call Robot.getnexty 2
+push constant 0
+eq
+or
+push argument 0
+push argument 1
+call Robot.getnexty 2
+push constant 17
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
 function Obstacle.dispose 0
 push argument 0
 pop pointer 0

@@ -11,6 +11,27 @@ call Target.draw 1
 pop temp 0
 push pointer 0
 return
+function Target.hit 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Robot.getx 1
+eq
+push this 1
+push argument 1
+call Robot.gety 1
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
 function Target.dispose 0
 push argument 0
 pop pointer 0
@@ -218,6 +239,195 @@ push constant 32767
 and
 push constant 24582
 or
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Target.raise 2
+push argument 0
+pop pointer 0
+push this 0
+push constant 1
+sub
+push constant 16
+call Math.multiply 2
+push constant 32
+call Math.multiply 2
+push this 1
+push constant 15
+add
+add
+pop local 1
+push constant 16384
+push local 1
+add
+pop local 0
+push local 0
+push constant 32
+add
+push local 0
+push constant 32
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push local 0
+push constant 64
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push local 0
+push constant 96
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push local 0
+push constant 128
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push local 0
+push constant 160
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push local 0
+push constant 192
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push local 0
+push constant 224
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push local 0
+push constant 256
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push local 0
+push constant 288
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push local 0
+push constant 320
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push local 0
+push constant 352
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push local 0
+push constant 384
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push local 0
+push constant 416
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push local 0
+push constant 448
+add
+call Memory.peek 1
+push constant 32767
+neg
+and
 call Memory.poke 2
 pop temp 0
 push constant 0

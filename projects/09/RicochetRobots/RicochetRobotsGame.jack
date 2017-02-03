@@ -3,8 +3,43 @@ class RicochetRobotsGame {
   field Array obstacles;
   field Array robots;
   field Target target;
+  field int targetx;
+  field int targety;
+  field int times;
+  field int moves;
 
   constructor RicochetRobotsGame new() {
+    do generateBoard();
+    let targetx = 12;
+    let targety = 14;
+    let moves = 0;
+    do Output.moveCursor(1,0);
+    do Output.printString("RicoChet Robots");
+    do Output.moveCursor(3,0);
+    do Output.printString("Press s to start game!");
+    do Output.moveCursor(5,0);
+    do Output.printString("Press s to skip next level");
+    do Output.moveCursor(7,0);
+    do Output.printString("Press r to reset current level");
+    do Output.moveCursor(9,0);
+    do Output.printString("Press arrow key to move robot");
+    do Output.moveCursor(11,0);
+    do Output.printString("Press 1-5 key to select robot");
+    do Output.moveCursor(13,0);
+    do Output.printString("Press q quit");
+    do Output.moveCursor(15,0);
+    do Output.printString("Selected Robot: 1");
+    do Output.moveCursor(17,0);
+    do Output.printString("Moves: 0");
+    do Output.moveCursor(20,0);
+    do Output.printString("Goal: Put Robot 1 in the");
+    do Output.moveCursor(21,0);
+    do Output.printString("target(X) location");
+    return this;
+
+  }
+
+  method void generateBoard(){
     do Screen.drawLine(256,0,256,255);
     let obstacles = Array.new(50);
     let obstacles[0] = Obstacle.new(1,3,3);
@@ -65,15 +100,44 @@ class RicochetRobotsGame {
     let robots[3] = Robot.new(10,5,4);
     let robots[4] = Robot.new(14,10,5);
 
-    let target = Target.new(12,14);
-    return this;
-
+    let target = Target.new(targetx,targety);
+    return;
   }
+  
 
    /** Disposes this game. */
    method void dispose() {
-      do Memory.deAlloc(this);
-      return;
+     var int cont;
+     var Obstacle obstacle;
+     var Robot robot;
+
+     let cont = 0;
+     while(cont < 50){
+       let obstacle = obstacles[cont];
+       do obstacle.dispose();
+       let cont = cont + 1;
+         }
+
+     let cont = 0;
+     while(cont < 5){
+       let robot = robots[cont];
+       do robot.dispose();
+       let cont = cont + 1;
+     }
+
+     do target.dispose();
+     do Memory.deAlloc(this);
+     return;
+   }
+
+   method void incTimes(){
+     if(times > 30000){
+       let times = 0;
+     }
+     else{
+       let times = times + 1;
+     }
+     return;
    }
 
    method void run() {
@@ -84,14 +148,14 @@ class RicochetRobotsGame {
      var boolean hit;
      var int cont;
      var Obstacle obstacle;
-          var int rx, ry;
-
+     var boolean robotMoved;
 
      let exit = false;
      let selected_robot = 1;
 
      while (~exit) {
        while (key = 0) {
+         do incTimes();
          let key = Keyboard.keyPressed();
        }
 
@@ -101,57 +165,115 @@ class RicochetRobotsGame {
        if (key = 51)  { let selected_robot = 3; }
        if (key = 52)  { let selected_robot = 4; }
        if (key = 53)  { let selected_robot = 5; }
+       if (key = 83)  {
+         do nextLevel();
+         let hit = true;
+       }
+       if(key = 82) {
+         let cont = 0;
+         while(cont < 5){
+           let robot = robots[cont];
+           do robot.raise();
+           do robot.reset();
+           do robot.draw();
+           do target.draw();
+           let moves  = 0;
+           do Output.moveCursor(17,0);
+           do Output.printString("Moves: 0    ");
+           let cont = cont + 1;
+         }
+       }
 
+       do Output.moveCursor(15,16);
+       do Output.printInt(selected_robot);
        let robot = robots[selected_robot-1];
-       
-       let cont = 0;
        let hit = false;
-       while((cont < 50) & (~hit) ){
-          let obstacle = obstacles[cont];
-          let hit= obstacle.hit(robot,key);
-          let cont = cont + 1;
+       let robotMoved = false;
+      
+       while(~hit){
+         let hit = Obstacle.hitWall(robot, key);
 
-         // if(hit){
-         // let rx = robot.getnextx(key);
-         // let ry = robot.getnexty(key);
-         // do Output.printString("x");
-         // do Output.printInt(obstacle.getx());
-         // do Output.println();
-         // do Output.printString("y");
-         // do Output.printInt(obstacle.gety());
-         // do Output.println();
-         // do Output.printString("rx");
-         // do Output.printInt(rx);
-         // do Output.println();
-         // do Output.printString("ry");
-         // do Output.printInt(ry);
-         // do Output.println();
-         // do Output.printString("key");
-         // do Output.printInt(key);
-         // do Output.println();
-         // }
+         let cont = 0;
+         while((cont < 50) & (~hit) ){
+           let obstacle = obstacles[cont];
+           let hit= obstacle.hit(robot,key);
+           let cont = cont + 1;
+           do incTimes();
+         }
+
+         let cont = 0;
+         while((cont < 5) & (~hit) ){
+           let nextRobot = robots[cont];
+           let hit= nextRobot.hit(robot,key);
+           let cont = cont + 1;
+         }
+
+         if((~hit)){
+           let robotMoved = true;
+           if(target.hit(robot)){
+             do robot.move(key);
+             do target.dispose();
+             let target = Target.new(targetx,targety);
+           }
+           else{
+             do robot.move(key);
+           }
+         }
        }
 
-       let cont = 0;
-       while((cont < 5) & (~hit) ){
-          let nextRobot = robots[cont];
-          let hit= nextRobot.hit(robot,key);
-          let cont = cont + 1;
+       if(robotMoved){
+         let moves  = moves + 1;
+         do Output.moveCursor(17,7);
+         do Output.printInt(moves);
        }
 
-          do Output.printString("saiu");
-        do Output.printInt(hit);
-          do Output.println();
-
-          if((~hit)){
-            do robot.move(key);
-          }
+       let robot = robots[0];
+       if(target.hit(robot)){
+        do nextLevel();
+       }
 
        while (~(key = 0)) {
          let key = Keyboard.keyPressed();
+         do incTimes();
        }
 
      } // while
+     return;
+   }
+
+   method void nextLevel(){
+     var int nextTargetPosition, cont;
+     var Obstacle obstacle;
+     var Robot robot;
+     let nextTargetPosition = times -(49 * (times / 49));
+
+     let obstacle = obstacles[nextTargetPosition];
+     if((obstacle.getx() = targetx) & (obstacle.gety() = targety)) {
+       let nextTargetPosition = nextTargetPosition - 1;
+     }
+
+     if(((nextTargetPosition > 19) & (nextTargetPosition < 24)) | (nextTargetPosition = 26)){
+       let nextTargetPosition = nextTargetPosition + 10;
+     }
+
+     let obstacle = obstacles[nextTargetPosition];
+     let targetx = obstacle.getx();
+     let targety = obstacle.gety();
+     do target.raise();
+     do target.dispose();
+     let target = Target.new(targetx,targety);
+
+     let cont = 0;
+     while(cont < 5){
+       let robot = robots[cont];
+       do robot.draw();
+       do robot.original();
+       let cont = cont + 1;
+     }
+
+     let moves = 0;
+     do Output.moveCursor(17,0);
+     do Output.printString("Moves: 0   ");
      return;
    }
 }

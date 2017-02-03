@@ -1,10 +1,13 @@
 class Robot{
 
   field int x, y, number;
+  field int originalx, originaly;
 
   constructor Robot new(int Ax, int Ay, int Anumber) {
     let x = Ax;
+    let originalx = Ax;
     let y = Ay;
+    let originaly = Ay;
     let number = Anumber;
     do draw();
     return this;
@@ -21,6 +24,18 @@ class Robot{
 
    method int gety(){
      return y;
+   }
+
+   method void reset(){
+    let x = originalx;
+    let y = originaly;
+    return;
+   }
+
+   method void original(){
+    let originalx = x;
+    let originaly = y;
+    return;
    }
 
    method int getnextx(int key){
