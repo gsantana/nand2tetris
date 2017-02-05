@@ -1,0 +1,152 @@
+function Game.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+call Board.new 0
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+pop this 3
+call GUI.draw_grid 0
+pop temp 0
+call GUI.print_title 0
+pop temp 0
+call GUI.draw_2048 0
+pop temp 0
+push pointer 0
+return
+function Game.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Game.play 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+call Keyboard.keyPressed 0
+push constant 140
+eq
+not
+and
+not
+if-goto WHILE_END0
+call Seed.inc1 0
+pop temp 0
+call Keyboard.keyPressed 0
+pop this 2
+push this 2
+push constant 128
+eq
+push this 1
+not
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+call Seed.inc1 0
+pop temp 0
+push this 0
+call Board.new_tile 1
+pop temp 0
+call Seed.inc1 0
+pop temp 0
+push this 0
+call Board.new_tile 1
+pop temp 0
+push this 0
+call GUI.update_values 1
+pop temp 0
+push constant 0
+not
+pop this 1
+label IF_FALSE0
+push this 2
+push constant 0
+eq
+push this 3
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop this 3
+label IF_FALSE1
+push this 1
+push this 3
+not
+and
+push this 2
+push constant 130
+eq
+push this 2
+push constant 131
+eq
+or
+push this 2
+push constant 132
+eq
+or
+push this 2
+push constant 133
+eq
+or
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+push this 2
+call Board.move 2
+pop local 0
+push local 0
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+call Board.new_tile 1
+pop temp 0
+push this 0
+call GUI.update_values 1
+pop temp 0
+push constant 0
+not
+pop this 3
+push this 0
+call Board.count_empty 1
+push constant 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 0
+call Board.check_blocked 1
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+not
+pop local 1
+label IF_FALSE5
+label IF_FALSE4
+label IF_FALSE3
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+call GUI.print_game_over 0
+pop temp 0
+label IF_FALSE6
+push constant 0
+return

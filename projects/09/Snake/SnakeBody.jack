@@ -1,0 +1,44 @@
+class SnakeBody {
+
+  field Point pos;
+  field SnakeBody rest;
+
+  constructor SnakeBody new(Point p) {
+    let pos = p;
+    let rest = null;
+    return this;
+  }
+
+  method Point getPosition() {
+    return pos;
+  }
+
+  method SnakeBody getRest() {
+    return rest;
+  }
+
+  method void push(Point p) {
+    if (~ (rest = null)) {
+      do rest.dispose(true);
+    }
+    let rest = SnakeBody.new(p);
+    return;
+  }
+
+  // method void print(int x, int y) {
+  //   do Output.moveCursor(x, y);
+  //   do Output.printInt(pos.X());
+  //   do Output.moveCursor(x, y+5);
+  //   do Output.printInt(pos.Y());
+  //   return;
+  // }
+
+  method void dispose(boolean deep) {
+    if (deep & ~(rest = null)) {
+      do rest.dispose(deep);
+    }
+    do pos.dispose();
+    do Memory.deAlloc(this);
+    return;
+  }
+}

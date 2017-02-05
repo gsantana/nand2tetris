@@ -1,0 +1,28 @@
+class Random {
+  static int seed;
+
+  function void setSeed(int s) {
+    let seed = s;
+    return;
+  }
+
+  function int xor (int a, int b) {
+    return (a & b) | (~a & ~b);
+  }
+
+  function int rand() {
+    var int bit;
+    let bit = Random.xor(Random.xor(seed, seed / 4), Random.xor(seed / 8, seed / 32)) & 1;
+    let seed = (seed / 2) | (bit * (32767 + 1));
+    if (seed < 0) {
+      let seed = (seed - 32767) - 1;
+    }
+    return seed;
+  }
+
+  // function void print() {
+  //   do Output.moveCursor(22, 40);
+  //   do Output.printInt(seed);
+  //   return;
+  // }
+}

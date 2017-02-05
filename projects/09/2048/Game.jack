@@ -1,0 +1,70 @@
+class Game {
+    field Board board;
+    field boolean started;
+    field char cur_key;
+    field boolean moved;
+
+    constructor Game new(){
+        let board = Board.new();
+        let started = false;
+        let moved = false;
+        do GUI.draw_grid();
+        do GUI.print_title();
+        do GUI.draw_2048();
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void play () {
+        var boolean changed;
+        var boolean game_over;
+        let game_over = false;
+
+        while (~(game_over) & (~(Keyboard.keyPressed()=140))){ // exit loop if pressed Esc or game over
+            do Seed.inc1();
+
+            let cur_key = Keyboard.keyPressed();
+
+            if ((cur_key=128) & (~started)) { // start game if pressed Enter
+                do Seed.inc1();
+                do board.new_tile();
+                do Seed.inc1();
+                do board.new_tile();
+                do GUI.update_values(board);
+                let started = true;
+            }
+
+            if ((cur_key=0) & moved) {
+                let moved = false;
+            }
+
+
+            // move elements in board if game started & an arrow key pressed & not yet moved
+            if (started & (~moved) & ((cur_key = 130) | (cur_key = 131) | (cur_key = 132) | (cur_key = 133))){
+                let changed = board.move(cur_key);
+                if (changed) {
+                    do board.new_tile();
+                    //do Screen.clearScreen();
+                    //do GUI.draw_grid();
+                    do GUI.update_values(board);
+                    let moved = true;
+
+                    // check if there is at least one more move
+                    if (board.count_empty()=0) { // the board should have 1 or more empty elements
+                        if (board.check_blocked()) { // the board should not be blocked
+                            let game_over = true; // otherwise the game is over
+                        }
+                    }
+                }
+            }
+        }
+        if (game_over) {
+            do GUI.print_game_over();
+        }
+        return;
+    }
+}

@@ -1,0 +1,14 @@
+class MathUtils
+{
+	/**
+	 * Calculate n modulo m
+	 */
+	function int mod(int n, int m)
+	{
+		var int q;
+
+		let q = n / m;
+
+		return n - (m * q);
+	}
+}

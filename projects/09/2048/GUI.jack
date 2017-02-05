@@ -1,0 +1,115 @@
+class GUI {
+
+    function void update_values(Board a_board){
+        var int index;
+        var int row;
+        var int col;
+        var int value;
+        var int cursor_adjust;
+        var String blank;
+        let blank = "    ";
+        let row = 5;
+        let col = 7;
+        while (index < 16) {
+            // using the element value to decrease an offset from the 38
+            // the text can be adjusted to be centered at the tile for based on the length of number
+            let value = a_board.get_element(index);
+            let cursor_adjust = 0;
+            if (value > 999) {
+                let cursor_adjust = 1;
+            }
+
+            do Output.moveCursor(3 + (row*(index/4)), 38 + (col* (index - (4*(index/4)))));
+            do Output.printString(blank);
+
+            if (~(value=0)){
+                do Output.moveCursor(3 + (row*(index/4)), 38 - cursor_adjust + (col* (index - (4*(index/4)))));
+                do Output.printInt(value);
+            }
+
+            let index = index + 1;
+        }
+
+        do Output.moveCursor(17, 12);
+        do Output.printInt(a_board.get_score());
+
+        do blank.dispose();
+
+        return;
+    }
+
+    function void print_title() {
+        do Output.moveCursor(1, 12);
+        do Output.printString("2048 Game");
+        do Output.moveCursor(2, 7);
+        do Output.printString("by Mohammad Ghaffari");
+        do Output.moveCursor(3, 8);
+        do Output.printString("February 1st, 2017");
+        do Output.moveCursor(4, 7);
+        do Output.printString("A Nand2Tetris Project");
+
+        do Output.moveCursor(17, 5);
+        do Output.printString("Score:");
+        do Output.moveCursor(19, 5);
+        do Output.printString("Esc: quit, Enter: start");
+        do Output.moveCursor(20, 8);
+        do Output.printString("Arrow Keys: move");
+
+        return;
+    }
+
+    function void print_game_over() {
+        do Output.moveCursor(15, 12);
+        do Output.printString("Game Over!");
+        return;
+    }
+
+    function void draw_2048() {
+        var int memAddress;
+        let memAddress = 16384+4200;
+        do Memory.poke(memAddress+0, 0);
+        do Memory.poke(memAddress+32, -5393);
+        do Memory.poke(memAddress+64, -21847);
+        do Memory.poke(memAddress+96, -21847);
+        do Memory.poke(memAddress+128, -21848);
+        do Memory.poke(memAddress+160, -21848);
+        do Memory.poke(memAddress+192, -21844);
+        do Memory.poke(memAddress+224, -4442);
+        do Memory.poke(memAddress+256, -22365);
+        do Memory.poke(memAddress+288, -22367);
+        do Memory.poke(memAddress+320, -22367);
+        do Memory.poke(memAddress+352, -22367);
+        do Memory.poke(memAddress+384, -22367);
+        do Memory.poke(memAddress+416, -5905);
+        do Memory.poke(memAddress+448, 0);
+        do Memory.poke(memAddress+480, -1);
+        return;
+    }
+
+    function void draw_grid(){
+        var int x0;
+        var int x1;
+        var int y0;
+        var int y1;
+        var int width;
+        var int height;
+        var int index;
+        let width = 56;
+        let height = 55;
+        let x0 = 280;
+        let x1 = 504;
+        let y0 = 11;
+        let y1 = 231;
+        let index = 0;
+        while (index < 5) {
+            do Screen.drawLine(x0 + (width*index), y0, x0 + (width*index), y1);
+            let index = index +1;
+        }
+        let index = 0;
+        while (index < 5) {
+            do Screen.drawLine(x0, y0 + (height*index), x1, y0 + (height*index));
+            let index = index +1;
+        }
+        return;
+    }
+}

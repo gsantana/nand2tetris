@@ -138,7 +138,7 @@ function Robot.move 0
 push argument 0
 pop pointer 0
 push pointer 0
-call Robot.raise 1
+call Robot.erase 1
 pop temp 0
 push argument 1
 push constant 131
@@ -1216,7 +1216,7 @@ call Memory.poke 2
 pop temp 0
 push constant 0
 return
-function Robot.raise 2
+function Robot.erase 2
 push argument 0
 pop pointer 0
 push this 0

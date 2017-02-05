@@ -1,4 +1,10 @@
+/**
+ * The main class of the Ricochet Robots game.
+ * The rules of the game can be find in https://en.wikipedia.org/wiki/Ricochet_Robot
+ */
 class Main {
+
+    /** Initializes a Ricochet Robots game and starts running it. */
     function void main() {
       var RicochetRobotsGame game;
       let game = RicochetRobotsGame.new();

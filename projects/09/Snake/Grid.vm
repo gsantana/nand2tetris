@@ -1,0 +1,648 @@
+function Grid.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push constant 512
+push argument 0
+call Math.divide 2
+pop this 1
+push constant 256
+push constant 32
+sub
+push argument 0
+call Math.divide 2
+pop this 2
+push pointer 0
+call Grid.initialize 1
+pop temp 0
+push pointer 0
+return
+function Grid.index 0
+push argument 0
+pop pointer 0
+push argument 1
+push this 2
+call Math.multiply 2
+push argument 2
+add
+return
+function Grid.initialize 2
+push argument 0
+pop pointer 0
+push this 1
+push this 2
+call Math.multiply 2
+call Array.new 1
+pop this 3
+push constant 0
+pop local 0
+call Screen.clearScreen 0
+pop temp 0
+label WHILE_EXP0
+push local 0
+push this 1
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 1
+push this 2
+lt
+not
+if-goto WHILE_END1
+push local 0
+push constant 0
+eq
+push local 0
+push this 1
+push constant 1
+sub
+eq
+or
+push local 1
+push constant 0
+eq
+or
+push local 1
+push this 2
+push constant 1
+sub
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push local 0
+push local 1
+call Grid.index 3
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+push local 0
+push local 1
+push constant 0
+not
+call Grid.drawAt 4
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push pointer 0
+push local 0
+push local 1
+call Grid.index 3
+push this 3
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_END0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Grid.dispose 0
+push argument 0
+pop pointer 0
+push this 3
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Grid.drawRect 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 0
+not
+call Grid.drawAt 4
+pop temp 0
+push constant 0
+return
+function Grid.rectangleHelper 0
+push argument 0
+pop pointer 0
+push argument 1
+push argument 3
+call Math.min 2
+push argument 2
+push argument 4
+call Math.min 2
+push argument 1
+push argument 3
+call Math.max 2
+push argument 2
+push argument 4
+call Math.max 2
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Grid.drawTouch 2
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Grid.drawRect 2
+pop temp 0
+push argument 1
+call Point.X 1
+pop local 0
+push argument 1
+call Point.Y 1
+pop local 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 0
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 7
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 2
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 2
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 2
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 3
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 5
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 2
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 5
+add
+call Screen.drawLine 4
+pop temp 0
+push local 0
+push this 0
+call Math.multiply 2
+push constant 2
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 5
+add
+push local 0
+push this 0
+call Math.multiply 2
+push constant 2
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 4
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Grid.clear 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 0
+call Grid.drawAt 4
+pop temp 0
+push constant 0
+return
+function Grid.drawAt 0
+push argument 0
+pop pointer 0
+push argument 3
+call Screen.setColor 1
+pop temp 0
+push argument 1
+push this 0
+call Math.multiply 2
+push argument 2
+push this 0
+call Math.multiply 2
+push argument 1
+push constant 1
+add
+push this 0
+call Math.multiply 2
+push constant 1
+sub
+push argument 2
+push constant 1
+add
+push this 0
+call Math.multiply 2
+push constant 1
+sub
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Grid.checkIf 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+push argument 2
+call Grid.index 3
+push this 3
+add
+pop pointer 1
+push that 0
+push argument 3
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+return
+label IF_END0
+function Grid.set 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+push argument 2
+call Grid.index 3
+push this 3
+add
+push argument 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Grid.isEmpty 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 0
+call Grid.checkIf 4
+return
+function Grid.setEmpty 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 0
+call Grid.set 4
+pop temp 0
+push pointer 0
+push argument 1
+call Grid.clear 2
+pop temp 0
+push constant 0
+return
+function Grid.isWall 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 1
+call Grid.checkIf 4
+return
+function Grid.isSnake 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 2
+call Grid.checkIf 4
+return
+function Grid.setSnake 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 2
+call Grid.set 4
+pop temp 0
+push pointer 0
+push argument 1
+call Grid.drawRect 2
+pop temp 0
+push constant 0
+return
+function Grid.isFood 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Point.X 1
+push argument 1
+call Point.Y 1
+push constant 3
+call Grid.checkIf 4
+return
+function Grid.modulo 0
+push argument 0
+push argument 1
+push argument 0
+push argument 1
+call Math.divide 2
+call Math.multiply 2
+sub
+return
+function Grid.placeFood 3
+push argument 0
+pop pointer 0
+call Random.rand 0
+push this 1
+push this 2
+call Math.multiply 2
+call Grid.modulo 2
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 3
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+call Random.rand 0
+push this 1
+push this 2
+call Math.multiply 2
+call Grid.modulo 2
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+push this 3
+add
+push constant 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 2
+call Math.divide 2
+pop local 1
+push local 0
+push this 2
+call Grid.modulo 2
+pop local 2
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 1
+push this 0
+call Math.multiply 2
+push constant 1
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 1
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 6
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 6
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 1
+push this 0
+call Math.multiply 2
+push constant 3
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 4
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 7
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 1
+push this 0
+call Math.multiply 2
+push constant 0
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 3
+add
+push local 1
+push this 0
+call Math.multiply 2
+push constant 7
+add
+push local 2
+push this 0
+call Math.multiply 2
+push constant 4
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return

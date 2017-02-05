@@ -1,0 +1,363 @@
+class Board {
+    /**
+    Board class for the game 2048
+    */
+    field Array board;
+    field Array border_up;
+    field Array border_down;
+    field Array border_left;
+    field Array border_right;
+    field Array offset_up;
+    field Array offset_down;
+    field Array offset_left;
+    field Array offset_right;
+
+    field int score; // sum of all elements merged
+
+    constructor Board new(){
+        /**
+        constructs a new 4x4 Board and initializes its values to zeros
+        builds the corresponding Arrays for borders and offsets
+        */
+        let board = Array.new(16);
+        let border_up = Array.new(8);
+        let border_down = Array.new(8);
+        let border_left = Array.new(8);
+        let border_right = Array.new(8);
+        let offset_up = Array.new(2);
+        let offset_down = Array.new(2);
+        let offset_left = Array.new(2);
+        let offset_right = Array.new(2);
+
+        let border_up[0] = 0;
+        let border_up[1] = 0;
+        let border_up[2] = 0;
+        let border_up[3] = 1;
+        let border_up[4] = 0;
+        let border_up[5] = 2;
+        let border_up[6] = 0;
+        let border_up[7] = 3;
+
+        let border_down[0] = 3;
+        let border_down[1] = 0;
+        let border_down[2] = 3;
+        let border_down[3] = 1;
+        let border_down[4] = 3;
+        let border_down[5] = 2;
+        let border_down[6] = 3;
+        let border_down[7] = 3;
+
+        let border_left[0] = 0;
+        let border_left[1] = 0;
+        let border_left[2] = 1;
+        let border_left[3] = 0;
+        let border_left[4] = 2;
+        let border_left[5] = 0;
+        let border_left[6] = 3;
+        let border_left[7] = 0;
+
+        let border_right[0] = 0;
+        let border_right[1] = 3;
+        let border_right[2] = 1;
+        let border_right[3] = 3;
+        let border_right[4] = 2;
+        let border_right[5] = 3;
+        let border_right[6] = 3;
+        let border_right[7] = 3;
+
+        let offset_up[0] = 1;
+        let offset_up[1] = 0;
+
+        let offset_down[0] = -1;
+        let offset_down[1] = 0;
+
+        let offset_left[0] = 0;
+        let offset_left[1] = 1;
+
+        let offset_right[0] = 0;
+        let offset_right[1] = -1;
+
+        let score = 0;
+
+        do reset();
+
+        return this;
+    }
+
+    method void reset(){
+        /**
+        resets all the values in the board to zeros
+        */
+        var int index;
+        let index = 0;
+        while (index < 16) {
+            let board[index] = 0;
+            let index = index + 1;
+        }
+        return;
+    }
+
+    method int get_score() {
+        return score;
+    }
+
+    method void set_element(int index, int value){
+        /**
+        sets the value of the element of the board at the argument index
+        :param index: an int representing the offset index of the board array
+        :param value: an int representing the value to be set in the board[index]
+        */
+        let board[index] = value;
+        return;
+    }
+
+    method int get_element(int index){
+        /**
+        returns the value of the element of the board at the argument index
+        :param index: an int representing the offset index of the board array
+        :return: an int
+        */
+        return board[index];
+    }
+
+    method void dispose(){
+        /**
+        deallocates and frees the memory for board
+        */
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void print(){
+        /**
+        prints a linear representation of the board array
+        */
+        var int index;
+        let index = 0;
+        while (index <16){
+            do Output.printInt(board[index]);
+            do Output.printString(",");
+            let index = index +1;
+        }
+        return;
+    }
+
+    method boolean move(char dir){
+        /**
+        moves the elements of the board in the direction dir using the logic of 2048 game
+        :param dir: a char representing a keyboard input (left=130, up=131, right=132, down=133)
+        :return: boolean value true if any values in board changed otherwise false
+        */
+        var Array border;
+        var Array offset;
+        var int row;
+        var int col;
+        var Array line_values;
+        var Array new_line_values;
+        var boolean changed;
+
+        let changed = false;
+
+        let line_values = Array.new(4);
+        let new_line_values = Array.new(4);
+
+        let row = 0;
+        let col = 0;
+
+        // set the current border and offset based on the move direction argument
+        if (dir = 131) {
+            let border = border_up;
+            let offset = offset_up;
+        } else {
+        if (dir = 133) {
+            let border = border_down;
+            let offset = offset_down;
+        } else {
+        if (dir = 130) {
+            let border = border_left;
+            let offset = offset_left;
+        } else {
+        if (dir = 132) {
+            let border = border_right;
+            let offset = offset_right;
+        }}}}
+
+        // iterate in the board and process every line based on the current border and offset
+        while (row < 4) {
+            while (col < 4) {
+                let line_values[col] = board[(4*(border[row*2]+(col*offset[0]))) + (border[row*2+1] + (col*offset[1]))];
+                let col = col + 1;
+            }
+
+            // merge a line of numbers, based on 2048 rules, and save the result to a new array
+            let new_line_values = Merge.merge(line_values);
+
+            // add the sum of the merged elements of the current line to score
+            let score = score + Merge.get_sum();
+
+            // check if any value has changed
+            let col = 0;
+            while ((~changed) & (col < 4)) { //ignores check if at least one element has changed
+                if (~(new_line_values[col]=line_values[col])) {
+                    let changed = true;
+                }
+                let col = col + 1;
+            }
+
+            // using another boolean above the following assignment can be avoided if nothing has changed
+            // updates board element values from the new line values
+            let col = 0;
+            while (col < 4) {
+                let board[(4*(border[row*2]+(col*offset[0]))) + (border[row*2+1] + (col*offset[1]))] = new_line_values[col];
+                let col = col + 1;
+            }
+
+            let col =0;
+            let row = row + 1;
+        }
+
+        do line_values.dispose();
+        do new_line_values.dispose();
+
+        return changed;
+    }
+
+    method boolean check_blocked() {
+        /**
+        tests the board with every move direction and once finds a direction that can change the
+        board values returns false, otherwise there would be no more available moves and returns true
+        :return: a boolean signifying if the board is blocked or not
+        */
+        var Array border;
+        var Array offset;
+        var int row;
+        var int col;
+        var Array line_values;
+        var Array new_line_values;
+        var boolean changed;
+        var char dir;
+
+        let changed = false;
+
+        let line_values = Array.new(4);
+        let new_line_values = Array.new(4);
+
+        let dir = 130;
+
+        while ((~changed) & (dir < 134)) {
+            // set the current border and offset based on the move direction argument
+            if (dir = 131) {
+                let border = border_up;
+                let offset = offset_up;
+            } else {
+            if (dir = 133) {
+                let border = border_down;
+                let offset = offset_down;
+            } else {
+            if (dir = 130) {
+                let border = border_left;
+                let offset = offset_left;
+            } else {
+            if (dir = 132) {
+                let border = border_right;
+                let offset = offset_right;
+            }}}}
+
+            let row = 0;
+            let col = 0;
+
+            // iterate in the board and process every line based on the current border and offset
+            while (row < 4) {
+                while (col < 4) {
+                    let line_values[col] = board[(4*(border[row*2]+(col*offset[0]))) + (border[row*2+1] + (col*offset[1]))];
+                    let col = col + 1;
+                }
+
+                // merge a line of numbers, based on 2048 rules, and save the result to a new array
+                let new_line_values = Merge.merge(line_values);
+
+                // check if any value has changed
+                let col = 0;
+                while ((~changed) & (col < 4)) {
+                    if (~(new_line_values[col]=line_values[col])) {
+                        let changed = true;
+                    }
+                    let col = col + 1;
+                }
+
+                let col =0;
+                let row = row + 1;
+            }
+
+            let dir = dir + 1;
+        }
+
+        do line_values.dispose();
+        do new_line_values.dispose();
+
+        return ~changed; // if not changed is true, then the board is blocked
+    }
+
+    method void new_tile(){
+        /**
+        sets a new non-zero value, 4 or 2, on an empty (zero) element in the board
+        */
+        var Array empty;
+        var int new_value;
+        var int count;
+        var int index;
+        var int empty_index;
+        let index = 0;
+        let count = count_empty();
+
+        // save the index of every zero element in board to the empty array
+        if (count > 0) { // if there is any empty/zero element
+            let empty = Array.new(count);
+            let empty_index = count - 1; // used to fill the empty array from last to first index
+
+            let index = 0;
+            while (index < 16) {
+                if (board[index]=0){
+                    let empty[empty_index] = index;
+                    let empty_index = empty_index - 1;
+                }
+                let index = index + 1;
+            }
+
+            // in 12.5% of cases set the new tile value to 4 and in 87.5% set the value to 2:
+            // for seed values from 0 to 15 check if the seed value is 0 or 8 using remainder function
+            if ((Seed.get_seed() - (8 * (Seed.get_seed()/8)))=0) { // if seed is either 0 or 8
+                let new_value = 4;
+            } else {
+                let new_value = 2;
+            }
+            // set the new_value to an empty (zero) element in board that its index is kept in
+            // the empty array. In order not to overflow the empty array that might be less than
+            // seed, the remainder of seed over the count of empty elements is used
+            let board[empty[Seed.get_seed() - (count * (Seed.get_seed()/count))]] = new_value;
+        }
+
+        // de-allocate the memory of any local array/string/object
+        do empty.dispose();
+
+        return;
+    }
+
+    method int count_empty(){
+        /**
+        counts and returns the number of empty (zero valued) elements in the board
+        */
+        var int index;
+        var int count;
+        let index = 0;
+        let count = 0;
+        while (index < 16) {
+            if (board[index]=0){
+                let count = count + 1;
+            }
+            let index = index + 1;
+        }
+        return count;
+    }
+
+}

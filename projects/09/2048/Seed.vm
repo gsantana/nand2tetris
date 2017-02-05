@@ -1,0 +1,23 @@
+function Seed.inc1 0
+push static 0
+push constant 1
+add
+push constant 16
+push static 0
+push constant 1
+add
+push constant 16
+call Math.divide 2
+call Math.multiply 2
+sub
+pop static 0
+push constant 0
+return
+function Seed.get_seed 0
+push static 0
+return
+function Seed.set_seed 0
+push argument 0
+pop static 0
+push constant 0
+return

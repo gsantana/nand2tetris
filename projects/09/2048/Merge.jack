@@ -1,0 +1,76 @@
+class Merge {
+    /**
+    Merge class for 2048 game
+    */
+    static int sum; // sum of values merged
+    function Array merge(Array a_input_line) {
+        /**
+        Takes an Array (of integers) as input and processes neighbor elements as follows:
+        merges two next to each other elements if they are equal and have not already been merged
+        with another element of the array, and saves the sum into the next index in a result array
+        :param a_input_line: Array (of integers)
+        :return: Array (of integers)
+        */
+        var Array result_line;
+        var int result_index;
+        var int input_index;
+        var int element1;
+        var int element2;
+
+        let sum = 0; // reset sum to 0 for a new merge of line elements
+
+        // default array size is 4
+        let result_line = Array.new(4);
+        let result_index = 0;
+
+        let input_index = 0;
+        // if elementx is -1 it has not yet been assigned a value from the input array
+        let element1 = -1;
+        let element2 = -1;
+        // process all elements of input array (defaulted to 4)
+        while (input_index < 4) {
+            if (~(a_input_line[input_index]=0)) {  // if input value is not equal 0
+                if (element1=-1) { // if element1 is not yet set a value
+                    let element1 = a_input_line[input_index];
+                } else {           // otherwise set the value for element2
+                    let element2 = a_input_line[input_index];
+                }
+
+                if ((~(element1=-1)) & (~(element2=-1))) { // if none of elementx are unset
+                    if (element1 = element2) {             // if both values are the same
+                        // save the sum to result, increment result index and reset elementx
+                        let result_line[result_index] = element1 + element2;
+                        let sum = sum + element1 + element2; // keep score
+                        let result_index = result_index + 1;
+                        let element1 = -1;
+                        let element2 = -1;
+                    } else {                               // if values are not the same
+                        // save element1 to result, increment result index
+                        let result_line[result_index] = element1;
+                        let result_index = result_index + 1;
+                        // save the unused element2 to element1 and reset element2
+                        let element1 = element2;
+                        let element2 = -1;
+                    }
+                }
+            }
+            let input_index = input_index + 1; // increment input index for the next value
+        }
+        // if element1 is still unused and not reset, save its value to result and increment result index
+        if (~(element1=-1)) {
+            let result_line[result_index] = element1;
+            let result_index = result_index + 1;
+        }
+        // if there are empty elements in result that have not been set by any elements, fill with zeroes
+        while (result_index < 4) {
+            let result_line[result_index] = 0;
+            let result_index = result_index + 1;
+        }
+
+        return result_line;
+    }
+
+    function int get_sum() {
+        return sum;
+    }
+}

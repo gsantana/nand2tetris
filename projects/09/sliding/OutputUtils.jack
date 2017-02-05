@@ -1,0 +1,36 @@
+class OutputUtils
+{
+
+	/**
+	 * Print a text at a given row and column
+     */
+	function void printAt(int row, int col, String text) 
+	{
+		do Output.moveCursor(row, col);
+		do Output.printString(text);
+
+		return;
+	}
+
+	/**
+	 * Clear all lines
+	 */
+	function void clear()
+	{
+		var String emptyRow;
+		var int row;
+
+		let emptyRow = "                                                    ";
+		let row = 0;
+		
+		while (row < 21) {
+			do OutputUtils.printAt(row, 0, emptyRow);
+			let row = row + 1;
+		}
+
+		do emptyRow.dispose();
+
+		return;
+	}
+
+}

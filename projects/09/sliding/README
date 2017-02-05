@@ -1,0 +1,12 @@
+This is a simple text based game that implements
+a sliding puzzle. The goal is to move tiles 
+around in a 3 x 3 square so that they finally 
+are layed out according to the pattern:
+            
+          _ 1 2
+          3 4 5
+    	  6 7 8
+ 
+ See http://mypuzzle.org/sliding for more information
+ 
+ Author: Thomas Bollmeier 2017

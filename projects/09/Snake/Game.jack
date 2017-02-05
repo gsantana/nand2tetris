@@ -1,0 +1,205 @@
+class Game {
+
+  field Grid grid;
+  field Snake snake;
+  field Point direction;
+  field int score, bestScore, time, wait;
+
+  constructor Game new(int level) {
+    let wait = 175 - (level * 25);
+    let bestScore = 0;
+    return this;
+  }
+
+  method void initialize() {
+    let score = 0;
+    let time = 0;
+
+    let grid = Grid.new(8);
+    let snake = Snake.new(Point.new(10, 10));
+    let direction = Point.new(1, 0);
+    do grid.setSnake(snake.getHead());
+
+    do snake.grow(direction);
+    do grid.setSnake(snake.getHead());
+    do Sys.wait(100);
+
+    do snake.grow(direction);
+    do grid.setSnake(snake.getHead());
+    do Sys.wait(100);
+
+    do grid.placeFood();
+    do showScore();
+
+    return;
+  }
+
+  method void gameOver() {
+    do grid.dispose();
+    do snake.dispose();
+    do waitForStart(true);
+    return;
+  }
+
+  method void move() {
+    var Point position;
+
+    if (~snake.isAlive()) {
+      return;
+    }
+
+    let position = direction.add(snake.getHead());
+
+    if (grid.isFood(position)) {
+      do snake.grow(direction);
+      do grid.setSnake(snake.getHead());
+      let score = score + 1;
+      let bestScore = Math.max(bestScore, score);
+      do showScore();
+      do grid.placeFood();
+    } else {
+      do grid.setEmpty(snake.getTail());
+      do snake.shrink();
+
+      if (grid.isEmpty(position)) {
+        do snake.grow(direction);
+        do grid.setSnake(snake.getHead());
+      } else {
+        // grid.isWall(position) | grid.isSnake(position)
+        do grid.drawTouch(position);
+        do snake.die();
+      }
+
+      let time = time + 1;
+    }
+    do position.dispose();
+    return;
+  }
+
+  method void showPrompt(boolean gameover) {
+    var String prompt;
+    do Screen.setColor(true);
+    do Screen.drawRectangle(128, 56, 128 + 255, 56 + 111);
+    do Screen.setColor(false);
+    do Screen.drawRectangle(128 + 4, 56 + 4, 128 + 251, 56 + 107);
+    do Screen.setColor(true);
+
+    if (gameover) {
+      let prompt = "Game Over!";
+      do Output.moveCursor(9, 27);
+    } else {
+      let prompt = "Hello There!";
+      do Output.moveCursor(9, 26);
+    }
+    do Output.printString(prompt);
+    do prompt.dispose();
+
+    let prompt = "Press [N] To Start New Game.";
+    do Output.moveCursor(10, 18);
+    do Output.printString(prompt);
+    do prompt.dispose();
+
+    return;
+  }
+
+  method void showScore() {
+    var String text;
+
+    do Screen.setColor(false);
+    do Screen.drawRectangle(0, 224, 511, 255);
+
+    do Screen.setColor(true);
+
+    let text = "Score: ";
+    do Output.moveCursor(21, 1);
+    do Output.printString(text);
+    do Output.printInt(score);
+    do text.dispose();
+
+    let text = "Best:  ";
+    do Output.moveCursor(22, 1);
+    do Output.printString(text);
+    do Output.printInt(bestScore);
+    do text.dispose();
+
+    return;
+  }
+
+  method void begin() {
+    do waitForStart(false);
+    return;
+  }
+
+  method void waitForStart(boolean gameover) {
+    var char key;
+    var int seed;
+
+    do showPrompt(gameover);
+    while (~(key = 78)) { // z key
+      let seed = seed + 1;
+      if (seed < 0) {
+        let seed = (seed - 32767) - 1;
+      }
+      let key = Keyboard.keyPressed();
+    }
+    do Random.setSeed(seed);
+    do startNewGame();
+    return;
+  }
+
+  method void initGame() {
+    do initialize();
+    return;
+  }
+
+  method void startNewGame() {
+    var char key;
+    var int waited, epoch;
+    var boolean moved;
+
+    do initGame();
+
+    let epoch = 5;
+    let waited = 0;
+    let moved = false;
+    while (snake.isAlive()) {
+      while ((key = 0) & snake.isAlive()) {
+        let key = Keyboard.keyPressed();
+        do Sys.wait(epoch);
+        let waited = waited + epoch;
+        if (waited > wait) {
+          let waited = 0;
+          do move();
+          let moved = true;
+        }
+      }
+
+      if (moved) {
+        if (key = 131 & ~direction.isDown()) { do direction.setUp(); }   // up arrow
+        if (key = 133 & ~direction.isUp()) { do direction.setDown(); }   // down arrow
+        if (key = 130 & ~direction.isRight()) { do direction.setLeft(); }   // left arrow
+        if (key = 132 & ~direction.isLeft()) { do direction.setRight(); }   // right arrow
+        let moved = false;
+      }
+
+      while (~(key = 0) & snake.isAlive()) {
+        let key = Keyboard.keyPressed();
+        do Sys.wait(epoch);
+        let waited = waited + epoch;
+        if (waited > wait) {
+          let waited = 0;
+          do move();
+          let moved = true;
+        }
+      }
+    }
+
+    do gameOver();
+    return;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+}

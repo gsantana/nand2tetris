@@ -1,0 +1,224 @@
+/**
+ * This is a simple text based game that implements
+ * a sliding puzzle. The goal is to move the tiles 
+ * around in a 3 x 3 square so that they finally 
+ * are layed out according to the pattern:
+ *             
+ *          _ 1 2
+ *          3 4 5
+ *			6 7 8
+ *
+ * See http://mypuzzle.org/sliding for more information
+ *
+ * Author: Thomas Bollmeier 2017
+ */
+
+class SlidingGame
+{
+	field Board board;
+	field BoardView view;
+	field int startRow; // start row of board view
+	field boolean done;
+	field int numMoves; // number of tile moves 
+
+	constructor SlidingGame new() 
+	{
+		let startRow = 6;
+		let board = Board.new(3); // 3 x 3 board
+		let view = BoardView.new(board, startRow, 25);
+
+		return this;
+	}
+
+	method void dispose()
+	{
+		do view.dispose();
+		do board.dispose();
+		return;
+	}
+
+	method void reset()
+	{
+		/* Set values:
+		6 2 8
+		0 7 4
+		5 3 1
+		*/
+		do setValuesFromString("628074531");
+		let numMoves = 0;
+
+		return;
+	}
+
+	method void run()
+	{
+		var int key;
+
+		do showIntro();
+
+		while(Keyboard.keyPressed() = 0) {}
+		
+		let done = board.isSolved(); 
+		
+		do OutputUtils.clear();
+		
+		do reset();
+		
+		do view.render();
+
+		do showInfo();
+
+		do updateMovesDisplay();
+
+		while (~done) {
+
+			let key = Keyboard.keyPressed();
+
+			if (key > 0) {
+				do handleKey(key);
+				while (Keyboard.keyPressed() > 0) {} // wait for key being released
+			}
+			
+			if (~done) {
+				let done = board.isSolved();
+			}
+
+		}
+
+		if (board.isSolved()) {
+			do OutputUtils.printAt(20, 10, "Congratulations! You solved the puzzle!");	
+		}
+		
+		return;
+	}
+
+	method void showIntro()
+	{
+		var int row, col;
+		let row = 2;
+		let col = 10;
+
+		do OutputUtils.printAt(row, col,   "       ===== SLIDING PUZZLE =====");
+		do OutputUtils.printAt(row+1, col, "");
+		do OutputUtils.printAt(row+2, col, "The purpose of this game is to move the");
+		do OutputUtils.printAt(row+3, col, "tiles so that they are finally arranged");
+		do OutputUtils.printAt(row+4, col, "in the following layout:");
+		do OutputUtils.printAt(row+5, col, "");
+		do OutputUtils.printAt(row+6, col, "               _ 1 2");
+		do OutputUtils.printAt(row+7, col, "               3 4 5");
+		do OutputUtils.printAt(row+8, col, "               6 8 7");
+		do OutputUtils.printAt(row+9, col, "");
+		do OutputUtils.printAt(row+10, col, "Press any key to continue.");
+		
+		return;
+	}
+
+	method void showInfo()
+	{
+		var int row, col;
+		let row = 2;
+		let col = 10;
+
+		do OutputUtils.printAt(row, col, "For Navigation use cursor keys or");
+		do OutputUtils.printAt(row+1, col, "'u'(pper), 'd'(own), 'l'(eft) and 'r'(ight).");
+		do OutputUtils.printAt(row+2, col, "Use 'q' to quit, 's' to (re)start.");
+		
+		return;
+	}
+
+	method void setValuesFromString(String valuesStr)
+	{
+		var int size, cntValues, i, row, column, value;
+		var String valueStr;
+
+		let size = board.getSize();
+		let cntValues = valuesStr.length();
+		let i = 0;
+
+		while ((i < cntValues) & (i < (size * size))) {
+			
+			let valueStr = String.new(1);
+			do valueStr.appendChar(valuesStr.charAt(i));
+			
+			let value = valueStr.intValue();
+			
+			let row = i / size;
+			let column = MathUtils.mod(i, size);
+			
+			do board.setValue(value, row, column);
+
+			do valueStr.dispose();
+			
+			let i = i + 1;
+		}
+
+		return;
+	}
+
+
+
+	method void handleKey(char key) 
+	{
+					
+		if ((key = 85) | (key = 131)) { 
+			do applyMove(Direction.up());
+		}
+
+		if ((key = 68) | (key = 133)) {
+			do applyMove(Direction.down()); 
+		}
+
+		if ((key = 76) | (key = 130)) {
+			do applyMove(Direction.left());
+		}
+
+		if ((key = 82) | (key = 132)) {
+			do applyMove(Direction.right()); 
+		}
+
+		if (key = 81) {
+			// quit
+			let done = true;
+		}
+
+		if (key = 83) {
+			// reset
+			do reset();
+			do view.render();
+			do updateMovesDisplay();
+		}
+
+		return;
+	}
+
+	method void applyMove(Direction dir)
+	{
+		do board.moveNeighborToEmptyPos(dir);
+		do view.render();
+
+		let numMoves = numMoves + 1;
+		do updateMovesDisplay();
+				
+		return;
+	}
+
+	method void updateMovesDisplay()
+	{
+		var String moves, counts, message;
+
+		let moves = "#moves: ";
+		let counts = String.new(5);
+		do counts.setInt(numMoves);
+
+		let message = StringUtils.concat(moves, counts);
+
+		do OutputUtils.printAt(18, 10, message);
+
+		do moves.dispose();
+		do counts.dispose();
+		do message.dispose();
+
+		return;
+	}
+
+}

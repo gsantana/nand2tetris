@@ -1,7 +1,7 @@
 class Obstacle {
 
   field int x, y;
-  field int side;
+  field int side; //the position of the obstacle in the cell. 0 Up, 1 right, 2 down, 3 left
 
   constructor Obstacle new(int Ax, int Ay, int Aside) {
     let x = Ax;
@@ -12,94 +12,79 @@ class Obstacle {
   }
 
   function boolean hitWall(Robot robot,char key){
-     if((robot.getnextx(key) = 0) | (robot.getnextx(key) = 17) | 
-     (robot.getnexty(key) = 0) | (robot.getnexty(key) = 17)){
-        return true;
-        }
-     return false;
+    if((robot.getnextx(key) = 0) | (robot.getnextx(key) = 17) |
+        (robot.getnexty(key) = 0) | (robot.getnexty(key) = 17)){
+      return true;
+    }
+    return false;
   }
 
-   method void dispose() {
-      do Memory.deAlloc(this);
-      return;
-   }
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
 
-   method int getx(){
-     return x;
-   }
+  method int getx(){
+    return x;
+  }
 
-   method int gety(){
-     return y;
-   }
+  method int gety(){
+    return y;
+  }
 
+   /** draw only obstacles in position 0(Up) or 3(Left) in the cell **/
    method void draw() {
-      var int location;
-      let location = ((x - 1) * 16 * 32) + (y + 15) ;
-      if(side = 3){
-        do drawObstacle(location, 1, 1, 1, -2);
-      }
+     var int location;
+     let location = ((x - 1) * 16 * 32) + (y + 15) ;
+     if(side = 3){
+       do drawObstacle(location, 1, 1, 1, -2);
+     }
 
-      if(side = 0){
-        do drawObstacle(location, -1, 0, 0, 1);
-      }
-      return;
+     if(side = 0){
+       do drawObstacle(location, -1, 0, 0, 1);
+     }
+     return;
    }
 
-   method boolean  hit(Robot robot, char key) {
-        var int rx, ry;
-        let rx = robot.getnextx(key);
-        let ry = robot.getnexty(key);
-//        if((x=2) & (y=4)){
-//       do Output.printString("x");
-//       do Output.printInt(x);
-//       do Output.println();
-//       do Output.printString("y");
-//       do Output.printInt(y);
-//       do Output.println();
-//       do Output.printString("ax");
-//       do Output.printInt(ax);
-//       do Output.println();
-//       do Output.printString("ay");
-//       do Output.printInt(ay);
-//       do Output.println();
-//       do Output.printString("key");
-//       do Output.printInt(key);
-//       do Output.println();
-//       }
+   /** check if next movement of robot hit this obstacle **/
+   method boolean hit(Robot robot, char key) {
+     var int rx, ry;
+     let rx = robot.getnextx(key);
+     let ry = robot.getnexty(key);
 
-      if((x = rx) & (y = (ry + 1)) & (side = 3)){
-        if(key=130){ return true; }
-      }
+     if((x = rx) & (y = (ry + 1)) & (side = 3)){
+       if(key=130){ return true; }
+     }
 
-      if((x = (rx + 1)) & (y = ry) & (side = 0)){
-        if((key=131)){ return true; }
-      }
+     if((x = (rx + 1)) & (y = ry) & (side = 0)){
+       if((key=131)){ return true; }
+     }
 
-      if((x = rx) & (y = ry)){
-        if((key=132 & (side = 3)) | ((key=133) & (side = 0))){return true;}
-      }
-      return false;
+     if((x = rx) & (y = ry)){
+       if((key=132 & (side = 3)) | ((key=133) & (side = 0))){return true;}
+     }
+     return false;
    }
 
    method void drawObstacle(int location, int first, int middle, int last, int mask) {
      var int memAddress;
      let memAddress = 16384+location;
-      do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & mask) | first);
-      do Memory.poke(memAddress+32,(Memory.peek(memAddress+32) & mask) | middle);
-      do Memory.poke(memAddress+64,(Memory.peek(memAddress+64) & mask) | middle);
-      do Memory.poke(memAddress+96, (Memory.peek(memAddress+96) & mask) | middle);
-      do Memory.poke(memAddress+128,(Memory.peek(memAddress+128) & mask) | middle);
-      do Memory.poke(memAddress+160,(Memory.peek(memAddress+160) & mask) | middle);
-      do Memory.poke(memAddress+192,(Memory.peek(memAddress+192) & mask) | middle);
-      do Memory.poke(memAddress+224,(Memory.peek(memAddress+224) & mask) | middle);
-      do Memory.poke(memAddress+256,(Memory.peek(memAddress+256) & mask) | middle);
-      do Memory.poke(memAddress+288,(Memory.peek(memAddress+288) & mask) | middle);
-      do Memory.poke(memAddress+320,(Memory.peek(memAddress+320) & mask) | middle);
-      do Memory.poke(memAddress+352,(Memory.peek(memAddress+352) & mask) | middle);
-      do Memory.poke(memAddress+384,(Memory.peek(memAddress+384) & mask) | middle);
-      do Memory.poke(memAddress+416,(Memory.peek(memAddress+416) & mask) | middle);
-      do Memory.poke(memAddress+448,(Memory.peek(memAddress+448) & mask) | middle);
-      do Memory.poke(memAddress+480,(Memory.peek(memAddress+480) & mask) | last);
+     do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & mask) | first);
+     do Memory.poke(memAddress+32,(Memory.peek(memAddress+32) & mask) | middle);
+     do Memory.poke(memAddress+64,(Memory.peek(memAddress+64) & mask) | middle);
+     do Memory.poke(memAddress+96, (Memory.peek(memAddress+96) & mask) | middle);
+     do Memory.poke(memAddress+128,(Memory.peek(memAddress+128) & mask) | middle);
+     do Memory.poke(memAddress+160,(Memory.peek(memAddress+160) & mask) | middle);
+     do Memory.poke(memAddress+192,(Memory.peek(memAddress+192) & mask) | middle);
+     do Memory.poke(memAddress+224,(Memory.peek(memAddress+224) & mask) | middle);
+     do Memory.poke(memAddress+256,(Memory.peek(memAddress+256) & mask) | middle);
+     do Memory.poke(memAddress+288,(Memory.peek(memAddress+288) & mask) | middle);
+     do Memory.poke(memAddress+320,(Memory.peek(memAddress+320) & mask) | middle);
+     do Memory.poke(memAddress+352,(Memory.peek(memAddress+352) & mask) | middle);
+     do Memory.poke(memAddress+384,(Memory.peek(memAddress+384) & mask) | middle);
+     do Memory.poke(memAddress+416,(Memory.peek(memAddress+416) & mask) | middle);
+     do Memory.poke(memAddress+448,(Memory.peek(memAddress+448) & mask) | middle);
+     do Memory.poke(memAddress+480,(Memory.peek(memAddress+480) & mask) | last);
      return;
    }
 }

@@ -5,12 +5,6 @@ pop pointer 0
 push pointer 0
 call RicochetRobotsGame.generateBoard 1
 pop temp 0
-push constant 12
-pop this 3
-push constant 14
-pop this 4
-push constant 0
-pop this 6
 push constant 1
 push constant 0
 call Output.moveCursor 2
@@ -564,6 +558,12 @@ return
 function RicochetRobotsGame.generateBoard 0
 push argument 0
 pop pointer 0
+push constant 12
+pop this 3
+push constant 14
+pop this 4
+push constant 0
+pop this 6
 push constant 256
 push constant 0
 push constant 256
@@ -1355,7 +1355,7 @@ call RicochetRobotsGame.nextLevel 1
 pop temp 0
 push constant 0
 not
-pop local 5
+pop local 3
 label IF_FALSE6
 push local 0
 push constant 82
@@ -1363,22 +1363,201 @@ eq
 if-goto IF_TRUE7
 goto IF_FALSE7
 label IF_TRUE7
-push constant 0
+push pointer 0
+call RicochetRobotsGame.resetGame 1
+pop temp 0
+label IF_FALSE7
+push constant 15
+push constant 16
+call Output.moveCursor 2
+pop temp 0
+push local 4
+call Output.printInt 1
+pop temp 0
+push local 4
+push constant 1
+sub
+push this 1
+add
+pop pointer 1
+push that 0
 pop local 6
+push constant 0
+pop local 3
+push constant 0
+pop local 2
 label WHILE_EXP2
-push local 6
-push constant 5
-lt
+push local 3
+not
 not
 if-goto WHILE_END2
 push local 6
+push local 0
+call Obstacle.hitWall 2
+pop local 3
+push constant 0
+pop local 5
+label WHILE_EXP3
+push local 5
+push constant 50
+lt
+push local 3
+not
+and
+not
+if-goto WHILE_END3
+push local 5
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 8
+push local 8
+push local 6
+push local 0
+call Obstacle.hit 3
+pop local 3
+push local 5
+push constant 1
+add
+pop local 5
+push pointer 0
+call RicochetRobotsGame.incTimes 1
+pop temp 0
+goto WHILE_EXP3
+label WHILE_END3
+push constant 0
+pop local 5
+label WHILE_EXP4
+push local 5
+push constant 5
+lt
+push local 3
+not
+and
+not
+if-goto WHILE_END4
+push local 5
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 7
+push local 7
+push local 6
+push local 0
+call Robot.hit 3
+pop local 3
+push local 5
+push constant 1
+add
+pop local 5
+goto WHILE_EXP4
+label WHILE_END4
+push local 3
+not
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 0
+not
+pop local 2
+push local 6
+push local 0
+call Robot.move 2
+pop temp 0
+push this 2
+push local 6
+call Target.hit 2
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push this 2
+call Target.dispose 1
+pop temp 0
+push this 3
+push this 4
+call Target.new 2
+pop this 2
+label IF_FALSE9
+label IF_FALSE8
+goto WHILE_EXP2
+label WHILE_END2
+push local 2
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push this 6
+push constant 1
+add
+pop this 6
+push constant 17
+push constant 7
+call Output.moveCursor 2
+pop temp 0
+push this 6
+call Output.printInt 1
+pop temp 0
+label IF_FALSE10
+push constant 0
+push this 1
+add
+pop pointer 1
+push that 0
+pop local 6
+push this 2
+push local 6
+call Target.hit 2
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push pointer 0
+call RicochetRobotsGame.nextLevel 1
+pop temp 0
+label IF_FALSE11
+label WHILE_EXP5
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END5
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call RicochetRobotsGame.incTimes 1
+pop temp 0
+goto WHILE_EXP5
+label WHILE_END5
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function RicochetRobotsGame.resetGame 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 5
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+push local 0
 push this 1
 add
 pop pointer 1
 push that 0
 pop local 2
+push local 0
+push constant 1
+add
+pop local 0
 push local 2
-call Robot.raise 1
+call Robot.erase 1
 pop temp 0
 push local 2
 call Robot.reset 1
@@ -1389,8 +1568,6 @@ pop temp 0
 push this 2
 call Target.draw 1
 pop temp 0
-push constant 0
-pop this 6
 push constant 17
 push constant 0
 call Output.moveCursor 2
@@ -1423,181 +1600,6 @@ push constant 32
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-push local 6
-push constant 1
-add
-pop local 6
-goto WHILE_EXP2
-label WHILE_END2
-label IF_FALSE7
-push constant 15
-push constant 16
-call Output.moveCursor 2
-pop temp 0
-push local 4
-call Output.printInt 1
-pop temp 0
-push local 4
-push constant 1
-sub
-push this 1
-add
-pop pointer 1
-push that 0
-pop local 2
-push constant 0
-pop local 5
-push constant 0
-pop local 8
-label WHILE_EXP3
-push local 5
-not
-not
-if-goto WHILE_END3
-push local 2
-push local 0
-call Obstacle.hitWall 2
-pop local 5
-push constant 0
-pop local 6
-label WHILE_EXP4
-push local 6
-push constant 50
-lt
-push local 5
-not
-and
-not
-if-goto WHILE_END4
-push local 6
-push this 0
-add
-pop pointer 1
-push that 0
-pop local 7
-push local 7
-push local 2
-push local 0
-call Obstacle.hit 3
-pop local 5
-push local 6
-push constant 1
-add
-pop local 6
-push pointer 0
-call RicochetRobotsGame.incTimes 1
-pop temp 0
-goto WHILE_EXP4
-label WHILE_END4
-push constant 0
-pop local 6
-label WHILE_EXP5
-push local 6
-push constant 5
-lt
-push local 5
-not
-and
-not
-if-goto WHILE_END5
-push local 6
-push this 1
-add
-pop pointer 1
-push that 0
-pop local 3
-push local 3
-push local 2
-push local 0
-call Robot.hit 3
-pop local 5
-push local 6
-push constant 1
-add
-pop local 6
-goto WHILE_EXP5
-label WHILE_END5
-push local 5
-not
-if-goto IF_TRUE8
-goto IF_FALSE8
-label IF_TRUE8
-push constant 0
-not
-pop local 8
-push this 2
-push local 2
-call Target.hit 2
-if-goto IF_TRUE9
-goto IF_FALSE9
-label IF_TRUE9
-push local 2
-push local 0
-call Robot.move 2
-pop temp 0
-push this 2
-call Target.dispose 1
-pop temp 0
-push this 3
-push this 4
-call Target.new 2
-pop this 2
-goto IF_END9
-label IF_FALSE9
-push local 2
-push local 0
-call Robot.move 2
-pop temp 0
-label IF_END9
-label IF_FALSE8
-goto WHILE_EXP3
-label WHILE_END3
-push local 8
-if-goto IF_TRUE10
-goto IF_FALSE10
-label IF_TRUE10
-push this 6
-push constant 1
-add
-pop this 6
-push constant 17
-push constant 7
-call Output.moveCursor 2
-pop temp 0
-push this 6
-call Output.printInt 1
-pop temp 0
-label IF_FALSE10
-push constant 0
-push this 1
-add
-pop pointer 1
-push that 0
-pop local 2
-push this 2
-push local 2
-call Target.hit 2
-if-goto IF_TRUE11
-goto IF_FALSE11
-label IF_TRUE11
-push pointer 0
-call RicochetRobotsGame.nextLevel 1
-pop temp 0
-label IF_FALSE11
-label WHILE_EXP6
-push local 0
-push constant 0
-eq
-not
-not
-if-goto WHILE_END6
-call Keyboard.keyPressed 0
-pop local 0
-push pointer 0
-call RicochetRobotsGame.incTimes 1
-pop temp 0
-goto WHILE_EXP6
-label WHILE_END6
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0
@@ -1668,7 +1670,7 @@ push local 2
 call Obstacle.gety 1
 pop this 4
 push this 2
-call Target.raise 1
+call Target.erase 1
 pop temp 0
 push this 2
 call Target.dispose 1

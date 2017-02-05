@@ -1,0 +1,31 @@
+class StringUtils
+{
+	/**
+	 * Concatenate two strings and return a the concatenated new string
+	 */
+	function String concat(String s1, String s2)
+	{
+		var int len1, len2, i;
+		var String s;
+
+		let len1 = s1.length();
+		let len2 = s2.length();
+
+		let s = String.new(len1 + len2);
+
+		let i = 0;
+		while (i < len1) {
+			do s.appendChar(s1.charAt(i));
+			let i = i + 1; 
+		}
+
+		let i = 0;
+		while (i < len2) {
+			do s.appendChar(s2.charAt(i));
+			let i = i + 1; 
+		}
+
+		return s;
+	}
+
+}

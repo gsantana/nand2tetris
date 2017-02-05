@@ -1,0 +1,68 @@
+class Point {
+
+  field int x, y;
+
+  constructor Point new(int px, int py) {
+    do update(px, py);
+    return this;
+  }
+
+  method int X() {
+    return x;
+  }
+
+  method int Y() {
+    return y;
+  }
+
+  method Point add(Point p) {
+    return Point.new(x + p.X(), y + p.Y());
+  }
+
+  method void update(int px, int py) {
+    let x = px;
+    let y = py;
+    return;
+  }
+
+  method boolean isUp() {
+    return (x = 0) & (y = -1);
+  }
+
+  method void setUp() {
+    do update(0, -1);
+    return;
+  }
+
+  method boolean isDown() {
+    return (x = 0) & (y = 1);
+  }
+
+  method void setDown() {
+    do update(0, 1);
+    return;
+  }
+
+  method boolean isLeft() {
+    return (x = -1) & (y = 0);
+  }
+
+  method void setLeft() {
+    do update(-1, 0);
+    return;
+  }
+
+  method boolean isRight() {
+    return (x = 1) & (y = 0);
+  }
+
+  method void setRight() {
+    do update(1, 0);
+    return;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+}

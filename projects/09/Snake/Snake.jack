@@ -1,0 +1,51 @@
+class Snake {
+
+  field boolean alive;
+  field SnakeBody head, tail;
+
+  constructor Snake new(Point pos) {
+    let tail = SnakeBody.new(pos);
+    let head = tail;
+    let alive = true;
+    return this;
+  }
+
+  method void grow(Point direction) {
+    var Point position;
+    let position = direction.add(getHead());
+    do head.push(position);
+    let head = head.getRest();
+    return;
+  }
+
+  method void shrink() {
+    var SnakeBody temp;
+    let temp = tail.getRest();
+    do tail.dispose(false);
+    let tail = temp;
+    return;
+  }
+
+  method Point getHead() {
+    return head.getPosition();
+  }
+
+  method Point getTail() {
+    return tail.getPosition();
+  }
+
+  method boolean isAlive() {
+    return alive;
+  }
+
+  method void die() {
+    let alive = false;
+    return;
+  }
+
+  method void dispose() {
+    do tail.dispose(true);
+    do Memory.deAlloc(this);
+    return;
+  }
+}

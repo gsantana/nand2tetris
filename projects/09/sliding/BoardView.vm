@@ -1,0 +1,260 @@
+function BoardView.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 2
+push argument 2
+pop this 3
+push constant 4
+pop this 1
+push pointer 0
+return
+function BoardView.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function BoardView.render 3
+push argument 0
+pop pointer 0
+push this 0
+call Board.getSize 1
+pop local 2
+push pointer 0
+call BoardView.renderGrid 1
+pop temp 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push local 2
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 1
+label WHILE_EXP1
+push local 1
+push local 2
+lt
+not
+if-goto WHILE_END1
+push pointer 0
+push local 0
+push local 1
+call BoardView.renderCell 3
+pop temp 0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP1
+label WHILE_END1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function BoardView.renderGrid 4
+push argument 0
+pop pointer 0
+push this 0
+call Board.getSize 1
+pop local 0
+push this 1
+push local 0
+call Math.multiply 2
+pop local 1
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push local 0
+push constant 1
+add
+lt
+not
+if-goto WHILE_END0
+push pointer 0
+push this 2
+push local 2
+push this 1
+call Math.multiply 2
+add
+push this 3
+push local 1
+call BoardView.printHorizontalLine 4
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+pop local 3
+label WHILE_EXP1
+push local 3
+push local 0
+push constant 1
+add
+lt
+not
+if-goto WHILE_END1
+push pointer 0
+push this 2
+push this 3
+push local 3
+push this 1
+call Math.multiply 2
+add
+push local 1
+call BoardView.printVerticalLine 4
+pop temp 0
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+return
+function BoardView.printHorizontalLine 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push constant 1
+call String.new 1
+push constant 45
+call String.appendChar 2
+pop local 0
+label WHILE_EXP0
+push local 1
+push argument 3
+lt
+not
+if-goto WHILE_END0
+push argument 1
+push argument 2
+push local 1
+add
+call Output.moveCursor 2
+pop temp 0
+push local 1
+push this 1
+call MathUtils.mod 2
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Output.printString 1
+pop temp 0
+label IF_FALSE0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+call String.dispose 1
+pop temp 0
+push constant 0
+return
+function BoardView.printVerticalLine 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push constant 1
+call String.new 1
+push constant 124
+call String.appendChar 2
+pop local 0
+label WHILE_EXP0
+push local 1
+push argument 3
+lt
+not
+if-goto WHILE_END0
+push argument 1
+push local 1
+add
+push argument 2
+call Output.moveCursor 2
+pop temp 0
+push local 1
+push this 1
+call MathUtils.mod 2
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call Output.printString 1
+pop temp 0
+label IF_FALSE0
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+call String.dispose 1
+pop temp 0
+push constant 0
+return
+function BoardView.renderCell 3
+push argument 0
+pop pointer 0
+push argument 1
+push this 1
+call Math.multiply 2
+push constant 2
+add
+pop local 0
+push argument 2
+push this 1
+call Math.multiply 2
+push constant 2
+add
+pop local 1
+push this 0
+push argument 1
+push argument 2
+call Board.getValue 3
+pop local 2
+push this 2
+push local 0
+add
+push this 3
+push local 1
+add
+call Output.moveCursor 2
+pop temp 0
+push local 2
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+call Output.printInt 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return

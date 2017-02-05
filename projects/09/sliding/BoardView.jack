@@ -1,0 +1,129 @@
+class BoardView
+{
+	field Board board;
+	field int cellSize;
+	field int row0, col0; // Upper left corner
+
+	constructor BoardView new(Board inBoard, int inRow0, int inCol0)
+	{
+		let board = inBoard;
+		let row0 = inRow0;
+		let col0 = inCol0;
+		let cellSize = 4;
+
+		return this;
+	}
+
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void render()
+	{
+		var int row, col, size;
+		//var String rowStr;
+
+		let size = board.getSize();
+
+		do renderGrid();
+
+		let row = 0;
+		while (row < size) {
+			let col = 0;
+			while (col < size) {
+				do renderCell(row, col);
+				let col = col + 1;
+			}
+			let row = row + 1;
+		}
+
+		return;
+	}
+
+	method void renderGrid()
+	{
+		var int size, len;
+		var int i, j;
+
+		let size = board.getSize();
+		let len = cellSize * size;
+
+		let i = 0;
+
+		while (i < (size + 1)) {
+			do printHorizontalLine(row0 + (i*cellSize), col0, len);
+			let i = i + 1;
+		}
+
+		let j = 0;
+
+		while (j < (size + 1)) {
+			do printVerticalLine(row0, col0 + (j*cellSize), len);
+			let j = j + 1;
+		}
+
+		return;
+	}
+
+	method void printHorizontalLine(int startRow, int startCol, int length)
+	{
+		var String s;
+		var int c;
+
+		let c = 0;
+		let s = "-";
+
+		while (c < length) {
+			do Output.moveCursor(startRow, startCol+c);
+			if (MathUtils.mod(c, cellSize) > 0) {
+				do Output.printString(s);
+			}
+			let c = c + 1;
+		}
+
+		do s.dispose();
+
+		return;
+	}
+
+	method void printVerticalLine(int startRow, int startCol, int length)
+	{
+		var String s;
+		var int r;
+
+		let r = 0;
+		let s = "|";
+
+		while (r < length) {
+			do Output.moveCursor(startRow+r, startCol);
+			if (MathUtils.mod(r, cellSize) > 0) {
+				do Output.printString(s);
+			}
+			let r = r + 1;
+		}
+
+		do s.dispose();
+
+		return;
+	}
+
+	method void renderCell(int row, int col)
+	{
+		var int r, c, value;
+
+		let r = (row * cellSize) + 2;
+		let c = (col * cellSize) + 2;
+
+		let value = board.getValue(row, col);
+
+		do Output.moveCursor(row0 + r, col0 + c);
+		if (value > 0) {
+			do Output.printInt(value);
+		}
+
+		return;
+	}
+
+}

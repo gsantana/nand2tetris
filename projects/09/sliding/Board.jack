@@ -1,0 +1,143 @@
+/**
+* Board
+*
+* Represents board of a sliding puzzle of dimension size x size
+* (see http://mypuzzle.org/sliding for more information)
+*/
+class Board
+{
+	field int size;
+	field Array values;
+
+	constructor Board new(int inSize)
+	{
+		var int i, cntValues;
+
+		let size = inSize;
+		let cntValues = size*size;
+		let values = Array.new(cntValues);
+
+		// Initialize numbers
+		let i = 0;
+		while (i < cntValues) {
+			let values[i] = 0;
+			let i = i + 1;
+		}
+
+		return this;
+	}
+
+	method void dispose()
+	{
+		do values.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	/**
+	 * Move a tile that is neighbored to the empty tile
+	 * in the given direction (thereby swapping its position)
+	 * with the empty one.
+	 */
+	method boolean moveNeighborToEmptyPos(Direction dir)
+	{
+		// Find position of empty cell
+		var int idxEmpty,
+				rowEmpty,
+				colEmpty,
+				idxNew,
+				rowNew,
+				colNew;
+		var int valueToSwap;
+		var Direction up, down, left, right;
+
+		let idxEmpty = 0;
+
+		while (~(values[idxEmpty] = 0)) {
+			let idxEmpty = idxEmpty + 1;
+		}
+
+		let rowEmpty = idxEmpty / size;
+		let colEmpty = idxEmpty - (rowEmpty * size);
+
+		let rowNew = rowEmpty;
+		let colNew = colEmpty;
+
+		let up = Direction.up();
+		let down = Direction.down();
+		let left = Direction.left();
+		let right = Direction.right();
+
+		if (dir.getCode() = up.getCode()) {
+			if (rowNew < (size - 1)) {
+				let rowNew = rowNew + 1;
+			}
+		}
+
+		if (dir.getCode() = down.getCode()) {
+			if (rowNew > 0) {
+				let rowNew = rowNew - 1;
+			}
+		}
+
+		if (dir.getCode() = left.getCode()) {
+			if (colNew < (size - 1)) {
+				let colNew = colNew + 1;
+			}
+		}
+
+		if (dir.getCode() = right.getCode()) {
+			if (colNew > 0) {
+				let colNew = colNew - 1;
+			}
+		}
+
+		let idxNew = (rowNew * size) + colNew;
+
+		if (~(idxNew = idxEmpty)) {
+			let valueToSwap = values[idxNew];
+			let values[idxNew] = values[idxEmpty]; // move blank cell to new position
+			let values[idxEmpty] = valueToSwap;
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	method boolean isSolved()
+	{
+		var int i, cntValues;
+
+		let cntValues = size * size;
+		let i = 0;
+
+		while (i < cntValues) {
+			if (~(i = values[i])) {
+				return false;
+			}
+			let i = i + 1;
+		}
+
+		return true;
+	}
+
+	// Setters and getters
+
+	method int getSize()
+	{
+		return size;
+	}
+
+	method void setValue(int value, int row, int column)
+	{
+		let values[(row * size) + column] = value;
+		return;
+	}
+
+	method int getValue(int row, int column)
+	{
+		return values[(row * size) + column];
+	}
+
+}

@@ -1,0 +1,17 @@
+class Main
+{
+	function void main()
+	{
+		var SlidingGame game;
+
+		do Direction.init();
+
+		let game = SlidingGame.new();
+		
+		do game.run();
+		
+		do game.dispose();
+
+		return;
+	}
+}

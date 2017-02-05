@@ -1,0 +1,160 @@
+class Grid {
+
+  field int size, sizeX, sizeY;
+
+  field Array grid; // 0 => empty, 1 => wall, 2 => snake, 3 => food
+
+  constructor Grid new(int s) {
+    let size = s;
+    let sizeX = 512 / s;
+    let sizeY = (256 - 32) / s;
+    do initialize();
+    return this;
+  }
+
+  method int index(int x, int y) {
+    return x * sizeY + y;
+  }
+
+  method void initialize() {
+    var int x, y;
+
+    let grid = Array.new(sizeX * sizeY);
+
+    let x = 0;
+
+    do Screen.clearScreen();
+    while (x < sizeX) {
+      let y = 0;
+      while (y < sizeY) {
+        if ((x = 0) | (x = (sizeX - 1)) | (y = 0) | (y = (sizeY - 1))) {
+          let grid[index(x, y)] = 1;
+          do drawAt(x, y, true);
+        } else {
+          let grid[index(x, y)] = 0;
+        }
+        let y = y + 1;
+      }
+      let x = x + 1;
+    }
+
+    return;
+  }
+
+  method void dispose() {
+    do grid.dispose();
+    do Memory.deAlloc(this);
+    return;
+  }
+
+  method void drawRect(Point pos) {
+    do drawAt(pos.X(), pos.Y(), true);
+    return;
+  }
+
+  method void rectangleHelper (int x1, int y1, int x2, int y2) {
+    do Screen.drawRectangle(
+      Math.min(x1, x2), Math.min(y1, y2),
+      Math.max(x1, x2), Math.max(y1, y2)
+    );
+    return;
+  }
+
+  method void drawTouch(Point pos) {
+    var int x, y;
+    do drawRect(pos);
+
+    let x = pos.X();
+    let y = pos.Y();
+
+    do Screen.setColor(false);
+    do Screen.drawLine((x * size) + 0, (y * size) + 0, (x * size) + 7, (y * size) + 0);
+    do Screen.drawLine((x * size) + 7, (y * size) + 0, (x * size) + 7, (y * size) + 7);
+    do Screen.drawLine((x * size) + 7, (y * size) + 7, (x * size) + 0, (y * size) + 7);
+    do Screen.drawLine((x * size) + 0, (y * size) + 7, (x * size) + 0, (y * size) + 2);
+    do Screen.drawLine((x * size) + 0, (y * size) + 2, (x * size) + 5, (y * size) + 2);
+    do Screen.drawLine((x * size) + 5, (y * size) + 3, (x * size) + 5, (y * size) + 5);
+    do Screen.drawLine((x * size) + 5, (y * size) + 5, (x * size) + 2, (y * size) + 5);
+    do Screen.drawLine((x * size) + 2, (y * size) + 5, (x * size) + 2, (y * size) + 4);
+    return;
+  }
+
+  method void clear(Point pos) {
+    do drawAt(pos.X(), pos.Y(), false);
+    return;
+  }
+
+  method void drawAt(int x, int y, boolean color) {
+    do Screen.setColor(color);
+
+    do Screen.drawRectangle(
+      x * size,
+      y * size,
+      ((x + 1) * size) - 1,
+      ((y + 1) * size) - 1
+    );
+    return;
+  }
+
+  method boolean checkIf(int x, int y, int c) {
+    if (grid[index(x, y)] = c) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  method void set(int x, int y, int c) {
+    let grid[index(x, y)] = c;
+    return;
+  }
+
+  method boolean isEmpty(Point pos) {
+    return checkIf(pos.X(), pos.Y(), 0);
+  }
+
+  method void setEmpty(Point pos) {
+    do set(pos.X(), pos.Y(), 0);
+    do clear(pos);
+    return;
+  }
+
+  method boolean isWall(Point pos) {
+    return checkIf(pos.X(), pos.Y(), 1);
+  }
+
+  method boolean isSnake(Point pos) {
+    return checkIf(pos.X(), pos.Y(), 2);
+  }
+
+  method void setSnake(Point pos) {
+    do set(pos.X(), pos.Y(), 2);
+    do drawRect(pos);
+    return;
+  }
+
+  method boolean isFood(Point pos) {
+    return checkIf(pos.X(), pos.Y(), 3);
+  }
+
+  function int modulo(int a, int r) { // a % r
+    return a - (r * (a / r));
+  }
+
+  method void placeFood() {
+    var int r, x, y;
+    let r = Grid.modulo(Random.rand(), sizeX * sizeY);
+    while (~(grid[r] = 0)) {
+      let r = Grid.modulo(Random.rand(), sizeX * sizeY);
+    }
+    let grid[r] = 3;
+    let x = r / sizeY;
+    let y = Grid.modulo(r, sizeY);
+
+    do Screen.setColor(true);
+    do Screen.drawRectangle((x * size) + 1, (y * size) + 1, (x * size) + 6, (y * size) + 6);
+    do Screen.drawRectangle((x * size) + 3, (y * size) + 0, (x * size) + 4, (y * size) + 7);
+    do Screen.drawRectangle((x * size) + 0, (y * size) + 3, (x * size) + 7, (y * size) + 4);
+    return;
+  }
+}

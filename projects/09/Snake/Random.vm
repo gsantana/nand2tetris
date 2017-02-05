@@ -1,0 +1,58 @@
+function Random.setSeed 0
+push argument 0
+pop static 0
+push constant 0
+return
+function Random.xor 0
+push argument 0
+push argument 1
+and
+push argument 0
+not
+push argument 1
+not
+and
+or
+return
+function Random.rand 1
+push static 0
+push static 0
+push constant 4
+call Math.divide 2
+call Random.xor 2
+push static 0
+push constant 8
+call Math.divide 2
+push static 0
+push constant 32
+call Math.divide 2
+call Random.xor 2
+call Random.xor 2
+push constant 1
+and
+pop local 0
+push static 0
+push constant 2
+call Math.divide 2
+push local 0
+push constant 32767
+push constant 1
+add
+call Math.multiply 2
+or
+pop static 0
+push static 0
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 0
+push constant 32767
+sub
+push constant 1
+sub
+pop static 0
+label IF_FALSE0
+push static 0
+return

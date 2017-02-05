@@ -243,7 +243,7 @@ call Memory.poke 2
 pop temp 0
 push constant 0
 return
-function Target.raise 2
+function Target.erase 2
 push argument 0
 pop pointer 0
 push this 0

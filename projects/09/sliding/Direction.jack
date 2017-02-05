@@ -1,0 +1,48 @@
+class Direction
+{
+	static Direction upDir, downDir, leftDir, rightDir;
+
+	field int code;
+
+	function void init()
+	{
+		let upDir = Direction.new(1);
+		let downDir = Direction.new(2);
+		let leftDir = Direction.new(3);
+		let rightDir = Direction.new(4);
+
+		return;
+	}
+
+	function Direction up()
+	{
+		return upDir;
+	}
+
+	function Direction down()
+	{
+		return downDir;
+	}
+
+	function Direction left()
+	{
+		return leftDir;
+	}
+
+	function Direction right()
+	{
+		return rightDir;
+	}
+
+	constructor Direction new(int inCode)
+	{
+		let code = inCode;
+		return this;
+	}
+
+	method int getCode()
+	{
+		return code;
+	}
+
+}

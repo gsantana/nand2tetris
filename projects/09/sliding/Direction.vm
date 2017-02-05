@@ -1,0 +1,40 @@
+function Direction.init 0
+push constant 1
+call Direction.new 1
+pop static 0
+push constant 2
+call Direction.new 1
+pop static 1
+push constant 3
+call Direction.new 1
+pop static 2
+push constant 4
+call Direction.new 1
+pop static 3
+push constant 0
+return
+function Direction.up 0
+push static 0
+return
+function Direction.down 0
+push static 1
+return
+function Direction.left 0
+push static 2
+return
+function Direction.right 0
+push static 3
+return
+function Direction.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push pointer 0
+return
+function Direction.getCode 0
+push argument 0
+pop pointer 0
+push this 0
+return

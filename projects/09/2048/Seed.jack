@@ -1,0 +1,17 @@
+class Seed {
+    static int seed1;
+    
+    function void inc1() {
+        let seed1 = (seed1 + 1) - (16*((seed1+1)/16));
+        return;
+    }
+    
+    function int get_seed(){
+        return seed1;
+    }
+    
+    function void set_seed(int value){
+        let seed1 = value;
+        return;
+    }
+}
