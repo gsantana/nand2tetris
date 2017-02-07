@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require  'pry-byebug'
 require_relative 'source'
 require_relative 'parser'
 require_relative 'code_writer'

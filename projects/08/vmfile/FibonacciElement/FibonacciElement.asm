@@ -5,7 +5,7 @@ D=A
 @SP
 M=D
 //push returnAddress
-@Sys.init$retaj7sp1bs
+@Sys.init$retvid67u59
 D=A
 @SP
 A=M
@@ -62,7 +62,7 @@ M=D
 @Sys.init
 0,JMP
 //returnAddress:
-(Sys.init$retaj7sp1bs)
+(Sys.init$retvid67u59)
 //function Sys.init 0
 (Sys.init)
 //push constant 4
@@ -75,7 +75,7 @@ M=D
 M=M+1
 //call Main.fibonacci 1   
 //push returnAddress
-@Main.fibonacci$retdt8x21da
+@Main.fibonacci$retykzx5foz
 D=A
 @SP
 A=M
@@ -132,7 +132,7 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retdt8x21da)
+(Main.fibonacci$retykzx5foz)
 //Sys
 (WHILE)
 //Sys
@@ -168,19 +168,19 @@ D=M
 M=M-1
 A=M
 D=M-D
-@JUMPwhd8hhnt
+@JUMP95e56vqs
 D,JLT
 @SP
 A=M
 M=0
-@ENDwhd8hhnt
+@END95e56vqs
 0;JMP
 0;JMP
-(JUMPwhd8hhnt)
+(JUMP95e56vqs)
 @SP
 A=M
 M=-1
-(ENDwhd8hhnt)
+(END95e56vqs)
 @SP
 M=M+1
 //Main
@@ -301,7 +301,7 @@ M=M-D
 M=M+1
 //call Main.fibonacci 1  
 //push returnAddress
-@Main.fibonacci$retv33b8f66
+@Main.fibonacci$rethacx5npl
 D=A
 @SP
 A=M
@@ -358,7 +358,7 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retv33b8f66)
+(Main.fibonacci$rethacx5npl)
 //push argument 0
 @0
 D=A
@@ -391,7 +391,7 @@ M=M-D
 M=M+1
 //call Main.fibonacci 1  
 //push returnAddress
-@Main.fibonacci$retmm2bymvh
+@Main.fibonacci$retteu6we44
 D=A
 @SP
 A=M
@@ -448,7 +448,7 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retmm2bymvh)
+(Main.fibonacci$retteu6we44)
 //["add"]
 @SP
 M=M-1

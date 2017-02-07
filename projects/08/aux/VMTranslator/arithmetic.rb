@@ -5,7 +5,7 @@ class Arithmetic < Command
   end
 
   def codes
-    self.send arg1.to_sym
+    self.send type.to_sym
   end
 
   def add

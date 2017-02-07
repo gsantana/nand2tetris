@@ -5,7 +5,7 @@ D=A
 @SP
 M=D
 //push returnAddress
-@Sys.init$retaj7sp1bs
+@Sys.init$retiwnc63xm
 D=A
 @SP
 A=M
@@ -62,7 +62,7 @@ M=D
 @Sys.init
 0,JMP
 //returnAddress:
-(Sys.init$retaj7sp1bs)
+(Sys.init$retiwnc63xm)
 //function Sys.init 0
 (Sys.init)
 //push constant 4
@@ -75,7 +75,7 @@ M=D
 M=M+1
 //call Main.fibonacci 1   
 //push returnAddress
-@Main.fibonacci$retdt8x21da
+@Main.fibonacci$retxfz5m9c0
 D=A
 @SP
 A=M
@@ -132,10 +132,10 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retdt8x21da)
-//Sys
+(Main.fibonacci$retxfz5m9c0)
+//label WHILE
 (WHILE)
-//Sys
+//goto WHILE              
 @WHILE
 0,JMP
 //function Main.fibonacci 0
@@ -159,7 +159,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["lt"]
+//lt                     
 @SP
 M=M-1
 A=M
@@ -168,32 +168,32 @@ D=M
 M=M-1
 A=M
 D=M-D
-@JUMPwhd8hhnt
+@JUMPnam7zeqp
 D,JLT
 @SP
 A=M
 M=0
-@ENDwhd8hhnt
+@ENDnam7zeqp
 0;JMP
 0;JMP
-(JUMPwhd8hhnt)
+(JUMPnam7zeqp)
 @SP
 A=M
 M=-1
-(ENDwhd8hhnt)
+(ENDnam7zeqp)
 @SP
 M=M+1
-//Main
+//if-goto IF_TRUE
 @SP
 M=M-1
 A=M
 D=M
 @IF_TRUE
 D,JNE
-//Main
+//goto IF_FALSE
 @IF_FALSE
 0,JMP
-//Main
+//label IF_TRUE          
 (IF_TRUE)
 //push argument 0        
 @0
@@ -206,7 +206,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["return"]
+//return
 // endFrame=LCL
 @LCL
 D=M
@@ -267,7 +267,7 @@ M=D
 @R14
 A=M
 0;JMP
-//Main
+//label IF_FALSE         
 (IF_FALSE)
 //push argument 0
 @0
@@ -288,7 +288,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["sub"]
+//sub
 @SP
 M=M-1
 A=M
@@ -301,7 +301,7 @@ M=M-D
 M=M+1
 //call Main.fibonacci 1  
 //push returnAddress
-@Main.fibonacci$retv33b8f66
+@Main.fibonacci$reti1nryzqu
 D=A
 @SP
 A=M
@@ -358,7 +358,7 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retv33b8f66)
+(Main.fibonacci$reti1nryzqu)
 //push argument 0
 @0
 D=A
@@ -378,7 +378,7 @@ A=M
 M=D
 @SP
 M=M+1
-//["sub"]
+//sub
 @SP
 M=M-1
 A=M
@@ -391,7 +391,7 @@ M=M-D
 M=M+1
 //call Main.fibonacci 1  
 //push returnAddress
-@Main.fibonacci$retmm2bymvh
+@Main.fibonacci$ret3rrod2ib
 D=A
 @SP
 A=M
@@ -448,8 +448,8 @@ M=D
 @Main.fibonacci
 0,JMP
 //returnAddress:
-(Main.fibonacci$retmm2bymvh)
-//["add"]
+(Main.fibonacci$ret3rrod2ib)
+//add                    
 @SP
 M=M-1
 A=M
@@ -460,7 +460,7 @@ A=M
 M=M+D
 @SP
 M=M+1
-//["return"]
+//return
 // endFrame=LCL
 @LCL
 D=M

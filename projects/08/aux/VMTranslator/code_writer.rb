@@ -14,7 +14,6 @@ class CodeWriter
       f.puts "//#{line}"
       codes.each do |code|
         f.puts code
-        puts code
       end
     end
   end
