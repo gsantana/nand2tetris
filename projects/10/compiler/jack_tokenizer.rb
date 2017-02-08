@@ -17,37 +17,42 @@ class JackTokenizer
 
       token = posible_token
       posible_token = token + character
-      case posible_token
-      when /^class$|^constructor$|^function$|^method$|^field$|^static$|^var$|^int$|^char$|^boolean$|^void$|^true$|^false$|^null$|^this$|^let$|^do$|^if$|^else$|^while$|^return$/
+      if (posible_token =~  /^class$|^constructor$|^function$|^method$|^field$|^static$|^var$|^int$|^char$|^boolean$|^void$|^true$|^false$|^null$|^this$|^let$|^do$|^if$|^else$|^while$|^return$/  && character != "\n")
         type = :keyword
-      when /^\w+$/
+      elsif(posible_token =~ /^[a-zA-Z_]+$/ && character != "\n")
         type = :identifier
-      when /^\d+$/
-        type = :integer
-      when /^[{|}|(|)|\[|\]|\.|,|;|\+|\-|\*|\/|&|\||<|>|=|~]$/
+        posible_token = "" if comment
+      elsif(posible_token =~ /^\d+$/ && character != "\n")
+        type = :integer_constant
+      elsif(posible_token =~ /^[{|}|(|)|\[|\]|\.|,|;|\+|\-|\*|\/|&|\||<|>|=|~]$/ && character != "\n")
         type = :symbol
-      when /^\/\/$/
+      elsif(posible_token =~ /^\/\/$/)
         comment=true
-      when /^\/\*$/
+      elsif(posible_token =~ /^\/\*$/)
         block_comment=true
-      when /^\*\/$/
+      elsif(posible_token =~ /^\*\/$/)
         block_comment=false
         posible_token = ""
-      when /^"$|^".*"$/ 
-        found_string = !found_string
-        type = :string
-      when /^\n|\r\n$/
+      elsif(posible_token =~ /^"$|^".*"$/)
+        if comment
+          posible_token = "" 
+        else
+          found_string = !found_string
+          type = :string_constant
+        end
+      elsif(posible_token =~ /^\n|\r\n$/)
         posible_token = ""
         comment = false
-      when /^\s|\t$/
-         posible_token = "" unless found_string
+        posible_token = "" unless found_string
+      elsif(posible_token =~ /^\s+$/)
+        posible_token = ""
       else
         next if found_string
         unless comment or block_comment
-          found = true 
+          found = true
           @characters.unshift character
         end
-        posible_token = "" 
+        posible_token = ""
       end
     end
     Token.new(token,type)

@@ -23,11 +23,11 @@ class Source
     File.read(path).split("")
   end
 
-  def outFile
+  def out_file
     if directory?
-      "#{path.chomp("/")}/#{name}.vm"
+      "#{path.chomp("/")}/#{name}.xml"
     else
-      "#{dir}/#{name}.vm"
+      "#{dir}/#{name}.xml"
     end
   end
 end
