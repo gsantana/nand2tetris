@@ -1,5 +1,17 @@
 class VMWriter
   attr_reader :output
+
+  Operands = { "+" => "add",
+               "-" => "sub",
+               "*" => "call Math.multiply 2",
+               "/" => "call Math.divide 2",
+               "=" => "eq",
+               ">" => "gt",
+               "<" => "lt",
+               "&" => "and",
+               "|" => "or",
+               "~" => "not",
+             }
   
 
   def initialize(source)
@@ -15,7 +27,8 @@ class VMWriter
   end
 
   def write_arithmetic(command)
-    write(command.upcase)
+    value = Operands[command] ? Operands[command] : command
+    write(value)
   end
 
   def write_label(label)

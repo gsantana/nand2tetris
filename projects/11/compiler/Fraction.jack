@@ -3,16 +3,13 @@ class Fraction {
    field String foo, bar;
    static int count, test;
 
-   method int gcd(int x, int y, int z) {
-      var int r;
+   method void gcd(int x, int y, int z) {
       var Point po;
-      var String text;
-      let r = x + g(2, y, -z) * 5 + Point.testesr(r) + po.abcd(z);
+      var int a,b;
+      var String tee;
 
-      if(r){
-        let x = 1;
-      }
-
+      do po.testc(x);
       return ;
    }
+
 }

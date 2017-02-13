@@ -1,0 +1,43 @@
+push argument 1
+push pointer 0
+push constant 2
+push argument 2
+push argument 3
+-
+call g 4
++
+push constant 5
+*
+push local 0
+call Point.testesr 1
++
+push local 1
+push argument 3
+call po.abcd 2
++
+pop local 0
+push local 0
+not
+if-goto L1-mri006g6
+push constant 1
+pop argument 1
+goto L2-3ee0lkhr
+label L1-mri006g6
+label L2-3ee0lkhr
+label L1-7bgpguo8
+push argument 2
+push constant 2
+=
+not
+goto L2-61t9suuu
+push argument 1
+push constant 1
++
+pop argument 3
+goto L1-7bgpguo8
+label L2-61t9suuu
+push local 1
+push argument 1
+call po.testc 2
+push argument 1
+return

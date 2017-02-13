@@ -1,0 +1,23 @@
+class Fraction {
+   field int numerator, denominator;
+   field String foo, bar;
+   static int count, test;
+
+   method int gcd(int x, int y, int z) {
+      var int r;
+      var Point po;
+      var String text;
+      let r = x + g(2, y, -z) * 5 + Point.testesr(r) + po.abcd(z);
+
+      if(r){
+        let x = 1;
+      }
+
+      while(y=2){
+        let z = x + 1;
+      }
+
+      do po.testc(x);
+      return x;
+   }
+}

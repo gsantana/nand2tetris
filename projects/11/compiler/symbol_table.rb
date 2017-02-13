@@ -1,6 +1,6 @@
 class SymbolTable
 
-  attr_reader :class_table, :routine_table, :class_name
+  attr_reader :class_table, :routine_table, :class_name, :subroutune_return_type
    
   Symbol = Struct.new(:name, :type, :kind, :index, :segment)
 
@@ -14,9 +14,14 @@ class SymbolTable
     @class_name = name
   end
 
+  def set_subroutune_return_type(type)
+    @subroutune_return_type = type
+  end
+
   def start_subroutine
     @old_tables << routine_table
     @routine_table = []
+    @subroutune_return_type = nil
   end
 
   def define(name, type, kind)
@@ -33,7 +38,7 @@ class SymbolTable
 
   def var_count(kind)
     table(kind).select{|s| s.kind == kind}.count
-    end
+  end
 
   def table(kind)
     ['static', 'field'].include?(kind) ?  class_table : routine_table
