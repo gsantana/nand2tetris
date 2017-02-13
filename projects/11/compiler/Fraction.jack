@@ -8,7 +8,14 @@ class Fraction {
       var int a,b;
       var String tee;
 
-      do po.testc(x);
+      if (~(b > 16)) {
+
+        let a = 1;
+      }
+      else {
+        let tee = false;
+      }
+
       return ;
    }
 

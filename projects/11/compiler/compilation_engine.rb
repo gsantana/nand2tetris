@@ -86,23 +86,18 @@ class CompilationEngine
     eat('{')
     compile_var_dec
     nlocals = symbol_table.var_count('local')
+    vm_writer.write_function("#{symbol_table.class_name}.#{function_name}", nlocals)
     if(routine == 'method')
-      vm_writer.write_function(function_name, nlocals)
       symbol_table.define('this', symbol_table.class_name, 'argument')
       vm_writer.write_push('argument',0)
       vm_writer.write_pop('pointer',0)
     end
 
     if(routine == 'constructor')
-      vm_writer.write_function(function_name, nlocals)
       nfields = symbol_table.var_count('field')
       vm_writer.write_push('constant',nfields)
       vm_writer.write_call('Memory.alloc', 1)
       vm_writer.write_pop('pointer', 0)
-    end
-
-    if(routine == 'function')
-      vm_writer.write_function("#{symbol_table.class_name}.#{function_name}", nlocals)
     end
 
     compile_statements
@@ -146,15 +141,26 @@ class CompilationEngine
     if(can_eat?('let'))
       eat('let')
       value = eat_identifier
+      symbol = symbol_table.symbol(value)
       if(can_eat?('['))
+        vm_writer.write_push symbol.segment, symbol.index
         eat('[')
         compile_expression
         eat(']')
+        vm_writer.write_arithmetic "add"
+        eat('=')
+        compile_expression
+        vm_writer.write_pop 'pointer', 1
+        vm_writer.write_push 'that', 0
+        vm_writer.write_pop 'temp', 0
+        vm_writer.write_pop 'pointer', 1
+        vm_writer.write_push 'temp', 0
+        vm_writer.write_pop 'that', 0
+      else
+        eat('=')
+        compile_expression
+        vm_writer.write_pop(symbol.segment, symbol.index)
       end
-      eat('=')
-      compile_expression
-      symbol = symbol_table.symbol(value)
-      vm_writer.write_pop(symbol.segment, symbol.index)
       eat(';')
     end
   end
@@ -164,7 +170,7 @@ class CompilationEngine
       eat('if')
       eat('(')
       compile_expression
-      vm_writer.write_arithmetic "neg"
+      vm_writer.write_arithmetic "not"
       label_1 = "L1-#{uniqueKey}"
       vm_writer.write_ifgoto(label_1)
       eat(')')
@@ -191,7 +197,7 @@ class CompilationEngine
       vm_writer.write_label(label_1)
       eat('(')
       compile_expression
-      vm_writer.write_arithmetic "neg"
+      vm_writer.write_arithmetic "not"
       label_2 = "L2-#{uniqueKey}"
       vm_writer.write_goto(label_2)
       eat(')')
@@ -268,6 +274,11 @@ class CompilationEngine
     elsif(can_eat?(keyword_constant))
       if current_token.value == 'this'
         vm_writer.write_push 'pointer', 0
+      elsif(current_token.value == 'false' || current_token.value == 'null')
+        vm_writer.write_push 'constant', 0
+      elsif(current_token.value == 'true')
+        vm_writer.write_push 'constant', 0
+        vm_writer.write_arithmetic 'not'
       end
       write_and_advance
     elsif(can_eat?(unary_op))
@@ -285,9 +296,11 @@ class CompilationEngine
       advance
 
       if(can_eat?('['))
+        vm_writer.write_push symbol.segment, symbol.index
         eat('[')
         compile_expression
         eat(']')
+        vm_writer.write_arithmetic "add"
       elsif(can_eat?('('))
         vm_writer.write_push 'pointer', 0
         eat('(')

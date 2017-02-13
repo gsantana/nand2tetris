@@ -5,20 +5,15 @@ push local 2
 push constant 16
 gt
 not
-if-goto L1-6ztht7k3
-
-
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push constant 1
 pop local 1
-
-goto L2-lp78oh9
-
-label L1-6ztht7k3
-
+goto IF_END0
+label IF_FALSE0
 push constant 0
 pop local 3
-
-label L2-lp78oh9
-
+label IF_END0
 push constant 0
 return
