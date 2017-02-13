@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
-# require 'pry-byebug'
+require 'pry-byebug'
 require_relative 'source'
 require_relative 'jack_tokenizer'
 require_relative 'token'
 require_relative 'compilation_engine'
+require_relative 'symbol_table'
+require_relative 'vm_writer'
 
-class JackAnalizer
+class JackCompiler
   def self.compile path
     source = Source.new(path)
     source.files.map do |s|
@@ -14,12 +16,7 @@ class JackAnalizer
       parser.reset
       parser.compile_class
     end
-    # parser.write('<tokens>')
-    # while(token=tokenizer.advance)
-       # parser.write token.xml
-    # end
-    # parser.write('</tokens>')
   end
 end
 
-JackAnalizer.compile ARGV.first if ARGV.first
+JackCompiler.compile ARGV.first if ARGV.first

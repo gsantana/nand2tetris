@@ -1,0 +1,79 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CompilationEngine	compilation_engine.rb	/^class CompilationEngine$/;"	c
+JackCompiler	JackCompiler.rb	/^class JackCompiler$/;"	c
+JackTokenizer	jack_tokenizer.rb	/^class JackTokenizer$/;"	c
+Source	source.rb	/^class Source$/;"	c
+SymbolTable	symbol_table.rb	/^class SymbolTable$/;"	c
+Token	token.rb	/^class Token$/;"	c
+VMWriter	vm_writer.rb	/^class VMWriter$/;"	c
+advance	compilation_engine.rb	/^  def advance$/;"	f	class:CompilationEngine
+advance	jack_tokenizer.rb	/^  def advance$/;"	f	class:JackTokenizer
+can_eat?	compilation_engine.rb	/^  def can_eat?(string)$/;"	f	class:CompilationEngine
+can_eat_identifier?	compilation_engine.rb	/^  def can_eat_identifier?$/;"	f	class:CompilationEngine
+can_eat_term?	compilation_engine.rb	/^  def can_eat_term?$/;"	f	class:CompilationEngine
+characters	source.rb	/^  def characters$/;"	f	class:Source
+compile	JackCompiler.rb	/^  def self.compile path$/;"	F	class:JackCompiler
+compile_class	compilation_engine.rb	/^  def compile_class$/;"	f	class:CompilationEngine
+compile_class_var_dec	compilation_engine.rb	/^  def compile_class_var_dec$/;"	f	class:CompilationEngine
+compile_do	compilation_engine.rb	/^  def compile_do$/;"	f	class:CompilationEngine
+compile_expression	compilation_engine.rb	/^  def compile_expression$/;"	f	class:CompilationEngine
+compile_expression_list	compilation_engine.rb	/^  def compile_expression_list$/;"	f	class:CompilationEngine
+compile_if	compilation_engine.rb	/^  def compile_if$/;"	f	class:CompilationEngine
+compile_let	compilation_engine.rb	/^  def compile_let$/;"	f	class:CompilationEngine
+compile_return	compilation_engine.rb	/^  def compile_return$/;"	f	class:CompilationEngine
+compile_statements	compilation_engine.rb	/^  def compile_statements$/;"	f	class:CompilationEngine
+compile_subroutine	compilation_engine.rb	/^  def compile_subroutine$/;"	f	class:CompilationEngine
+compile_subroutine_body	compilation_engine.rb	/^  def compile_subroutine_body$/;"	f	class:CompilationEngine
+compile_term	compilation_engine.rb	/^  def compile_term$/;"	f	class:CompilationEngine
+compile_var_dec	compilation_engine.rb	/^  def compile_var_dec$/;"	f	class:CompilationEngine
+compile_while	compilation_engine.rb	/^  def compile_while$/;"	f	class:CompilationEngine
+compiler_parameter_list	compilation_engine.rb	/^  def compiler_parameter_list$/;"	f	class:CompilationEngine
+current_token	compilation_engine.rb	/^  def current_token$/;"	f	class:CompilationEngine
+define	symbol_table.rb	/^  def define(name, type, kind)$/;"	f	class:SymbolTable
+directory?	source.rb	/^  def directory?$/;"	f	class:Source
+eat	compilation_engine.rb	/^  def eat(strings)$/;"	f	class:CompilationEngine
+eat_identifier	compilation_engine.rb	/^  def eat_identifier$/;"	f	class:CompilationEngine
+encode_amp	token.rb	/^  def encode_amp$/;"	f	class:Token
+encode_gt	token.rb	/^  def encode_gt$/;"	f	class:Token
+encode_lt	token.rb	/^  def encode_lt$/;"	f	class:Token
+encode_quot	token.rb	/^  def encode_quot$/;"	f	class:Token
+files	source.rb	/^  def files$/;"	f	class:Source
+initialize	compilation_engine.rb	/^  def initialize(tokenizer,source)$/;"	f	class:CompilationEngine
+initialize	jack_tokenizer.rb	/^  def initialize(source)$/;"	f	class:JackTokenizer
+initialize	source.rb	/^  def initialize(path)$/;"	f	class:Source
+initialize	symbol_table.rb	/^  def initialize$/;"	f	class:SymbolTable
+initialize	token.rb	/^  def initialize(value,type)$/;"	f	class:Token
+initialize	vm_writer.rb	/^  def initialize(tokenizer,source)$/;"	f	class:VMWriter
+keyword_constant	compilation_engine.rb	/^  def keyword_constant$/;"	f	class:CompilationEngine
+op	compilation_engine.rb	/^  def op$/;"	f	class:CompilationEngine
+out_file	source.rb	/^  def out_file$/;"	f	class:Source
+reset	compilation_engine.rb	/^  def reset$/;"	f	class:CompilationEngine
+sanitize	token.rb	/^  def sanitize(string)$/;"	f	class:Token
+start_subroutine	symbol_table.rb	/^  def start_subroutine$/;"	f	class:SymbolTable
+statement_keys	compilation_engine.rb	/^  def statement_keys$/;"	f	class:CompilationEngine
+symbol	symbol_table.rb	/^  def symbol(name)$/;"	f	class:SymbolTable
+table	symbol_table.rb	/^  def table(kind)$/;"	f	class:SymbolTable
+to_s	token.rb	/^  def to_s$/;"	f	class:Token
+type	compilation_engine.rb	/^  def type$/;"	f	class:CompilationEngine
+type_camelize	token.rb	/^  def type_camelize$/;"	f	class:Token
+unary_op	compilation_engine.rb	/^  def unary_op$/;"	f	class:CompilationEngine
+var_count	symbol_table.rb	/^  def var_count(kind)$/;"	f	class:SymbolTable
+write	compilation_engine.rb	/^  def write(text)$/;"	f	class:CompilationEngine
+write	vm_writer.rb	/^  def write(text)$/;"	f	class:VMWriter
+write_and_advance	compilation_engine.rb	/^  def write_and_advance$/;"	f	class:CompilationEngine
+write_arithmetic	vm_writer.rb	/^  def write_arithmetic(command)$/;"	f	class:VMWriter
+write_call	vm_writer.rb	/^  def write_call(name, args)$/;"	f	class:VMWriter
+write_expression	compilation_engine.rb	/^  def write_expression$/;"	f	class:CompilationEngine
+write_function	vm_writer.rb	/^  def write_function(name, nlocals)$/;"	f	class:VMWriter
+write_goto	vm_writer.rb	/^  def write_goto(lebel)$/;"	f	class:VMWriter
+write_if	vm_writer.rb	/^  def write_if(lebel)$/;"	f	class:VMWriter
+write_label	vm_writer.rb	/^  def write_label(lebel)$/;"	f	class:VMWriter
+write_pop	vm_writer.rb	/^  def write_pop(segment, index)$/;"	f	class:VMWriter
+write_push	vm_writer.rb	/^  def write_push(segment, index)$/;"	f	class:VMWriter
+write_return	vm_writer.rb	/^  def write_return$/;"	f	class:VMWriter
+xml	token.rb	/^  def xml$/;"	f	class:Token
