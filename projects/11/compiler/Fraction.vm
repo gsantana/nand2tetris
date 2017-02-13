@@ -1,24 +1,20 @@
 function Fraction.gcd 4
 push argument 0
 pop pointer 0
-push local 2
-push constant 16
-gt
-not
-if-goto L1-6ztht7k3
-
-
+push local 1
+if-goto IF_TRUE-a45z0r36
+goto IF_FALSE-ghp62vbj
+label IF_TRUE-a45z0r36
+push local 3
 push constant 1
-pop local 1
-
-goto L2-lp78oh9
-
-label L1-6ztht7k3
-
-push constant 0
+add
 pop local 3
-
-label L2-lp78oh9
-
+goto IF_END-ofbg30ac
+label IF_FALSE-ghp62vbj
+push local 0
+push constant 1
+add
+pop local 0
+label IF_END-ofbg30ac
 push constant 0
 return

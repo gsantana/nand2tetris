@@ -170,41 +170,46 @@ class CompilationEngine
       eat('if')
       eat('(')
       compile_expression
-      vm_writer.write_arithmetic "not"
-      label_1 = "L1-#{uniqueKey}"
-      vm_writer.write_ifgoto(label_1)
+      # vm_writer.write_arithmetic "not"
+      label_true = "IF_TRUE-#{uniqueKey}"
+      vm_writer.write_ifgoto(label_true)
+      label_false = "IF_FALSE-#{uniqueKey}"
+      vm_writer.write_goto(label_false)
+      vm_writer.write_label(label_true)
       eat(')')
       eat('{')
       compile_statements
-      label_2 = "L2-#{uniqueKey}"
-      vm_writer.write_goto(label_2)
-      vm_writer.write_label(label_1)
       eat('}')
+      label_end = "IF_END-#{uniqueKey}"
+      if(can_eat?('else'))
+        vm_writer.write_goto(label_end)
+      end
+      vm_writer.write_label(label_false)
       if(can_eat?('else'))
         eat('else')
         eat('{')
         compile_statements
         eat('}')
+      vm_writer.write_label(label_end)
       end
-      vm_writer.write_label(label_2)
     end
   end
 
   def compile_while
     if(can_eat?('while'))
       eat('while')
-      label_1 = "L1-#{uniqueKey}"
-      vm_writer.write_label(label_1)
+      label_while_exp = "WHILE_EXP-#{uniqueKey}"
+      vm_writer.write_label(label_while_exp)
       eat('(')
       compile_expression
       vm_writer.write_arithmetic "not"
-      label_2 = "L2-#{uniqueKey}"
-      vm_writer.write_goto(label_2)
+      label_while_end = "WHILE_END-#{uniqueKey}"
+      vm_writer.write_ifgoto(label_while_end)
       eat(')')
       eat('{')
       compile_statements
-      vm_writer.write_goto(label_1)
-      vm_writer.write_label(label_2)
+      vm_writer.write_goto(label_while_exp)
+      vm_writer.write_label(label_while_end)
       eat('}')
     end
   end
@@ -218,7 +223,7 @@ class CompilationEngine
         eat('(')
         vm_writer.write_push 'pointer', 0
         nargs = compile_expression_list
-        vm_writer.write_call(value, nargs + 1)
+        vm_writer.write_call("#{symbol_table.class_name}.#{value}", nargs + 1)
         eat(')')
       elsif(can_eat?('.'))
         if symbol
@@ -229,15 +234,15 @@ class CompilationEngine
         eat('(')
         nargs = compile_expression_list
         if symbol
-          vm_writer.write_call("#{value}.#{func}", nargs + 1)
+          vm_writer.write_call("#{symbol.type}.#{func}", nargs + 1)
         else
           vm_writer.write_call("#{value}.#{func}", nargs)
         end
-        vm_writer.write_pop('temp', 0)
         eat(')')
       else
         raise "compile_do con not handle #{current_token}"
       end
+      vm_writer.write_pop('temp', 0)
       eat(';')
     end
   end
@@ -306,7 +311,7 @@ class CompilationEngine
         eat('(')
         nargs = compile_expression_list
         eat(')')
-        vm_writer.write_call(token.value, nargs + 1)
+        vm_writer.write_call("#{symbol_table.class_name}.#{token.value}", nargs + 1)
       elsif(can_eat?('.'))
         if symbol
           vm_writer.write_push symbol.segment, symbol.index
@@ -317,7 +322,7 @@ class CompilationEngine
         nargs = compile_expression_list
         eat(')')
         if symbol
-          vm_writer.write_call("#{token.value}.#{func}", nargs + 1)
+          vm_writer.write_call("#{symbol.type}.#{func}", nargs + 1)
         else
           vm_writer.write_call("#{token.value}.#{func}", nargs)
         end

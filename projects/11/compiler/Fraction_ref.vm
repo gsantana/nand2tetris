@@ -1,19 +1,20 @@
 function Fraction.gcd 4
 push argument 0
 pop pointer 0
-push local 2
-push constant 16
-gt
-not
+push local 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+push local 3
 push constant 1
-pop local 1
+add
+pop local 3
 goto IF_END0
 label IF_FALSE0
-push constant 0
-pop local 3
+push local 0
+push constant 1
+add
+pop local 0
 label IF_END0
 push constant 0
 return

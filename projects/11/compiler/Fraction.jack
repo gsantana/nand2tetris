@@ -8,13 +8,13 @@ class Fraction {
       var int a,b;
       var String tee;
 
-      if (~(b > 16)) {
+    	if (a) {
+        let tee = tee + 1;
+      }
+      else{
+        let po = po + 1;
+      }
 
-        let a = 1;
-      }
-      else {
-        let tee = false;
-      }
 
       return ;
    }
