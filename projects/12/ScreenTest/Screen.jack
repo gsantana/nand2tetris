@@ -6,7 +6,7 @@
 /**
  * A library of functions for displaying graphics on the screen.
  * The Hack physical screen consists of 512 rows (indexed 0..511, top to bottom)
- * of 256 pixels each (indexed 0..255, left to right). The top left pixel on 
+ * of 256 pixels each (indexed 0..255, left to right). The top left pixel on
  * the screen is indexed (0,0).
  */
 class Screen {
@@ -39,6 +39,8 @@ class Screen {
 
     /** Erases the entire screen. */
     function void clearScreen() {
+      do Screen.setColor(false);
+      do Screen.drawRectangle(0,0,511,255);
       return;
     }
 
@@ -68,17 +70,102 @@ class Screen {
 
     /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
     function void drawLine(int x1, int y1, int x2, int y2) {
+      var int dx, dy, a, b, diff;
+      var boolean right, down;
+      let a = 0;
+      let b = 0;
+      let diff = 0;
+      if((x2 -x1) > 0){
+        let right = true;
+      }
+      else{
+        let right = false;
+      }
+
+      if((y2 -y1) > 0){
+        let down = true;
+      }
+      else{
+        let down = false;
+      }
+
+      let dx = Math.abs(x2 - x1);
+      let dy = Math.abs(y2 - y1);
+
+      while( (a < dx) | (b < dy)){
+      /*
+        do Output.printInt(a);
+        do Output.printString(" ");
+        do Output.printInt(b);
+        do Output.printString(" ");
+        do Output.println();
+        */
+
+        if(right & down){
+          do Screen.drawPixel(x1+a, y1+b);
+        }
+
+        if(right & ~down){
+          do Screen.drawPixel(x1+a, y1-b);
+        }
+
+        if(~right & down){
+          do Screen.drawPixel(x1-a, y1+b);
+        }
+
+        if(~right & ~down){
+          do Screen.drawPixel(x1-a, y1-b);
+        }
+
+        if(diff < 0){
+          let a = a +1;
+          let diff = diff + dy;
+        }
+        else{
+          let b = b +1;
+          let diff = diff - dx;
+        }
+      }
       return;
     }
 
     /** Draws a filled rectangle whose top left corner is (x1, y1)
      * and bottom right corner is (x2,y2), using the current color. */
     function void drawRectangle(int x1, int y1, int x2, int y2) {
+      var int dy, b;
+      var boolean down;
+      let b = 0;
+
+      if((x2 -x1) > 0){
+        let down = true;
+      }
+      else{
+        let down = false;
+      }
+
+      let dy = Math.abs(x2 -x1);
+
+      while(dy > b){
+        if(down){
+          do Screen.drawLine(x1 + b,y1,x1 + b,y2);
+        }
+        else{
+          do Screen.drawLine(x1 - b,y1,x1 - b,y2);
+        }
+        let b = b + 1;
+      }
       return;
     }
 
     /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
     function void drawCircle(int x, int y, int r) {
+      var int dy, diff;
+      let dy = -r;
+      while(dy < (r + 1)){
+        let diff = Math.sqrt((r * r) - (dy * dy));
+        do Screen.drawLine(x - diff, y + dy, x + diff, y + dy);
+        let dy = dy + 1;
+      }
       return;
     }
 }
