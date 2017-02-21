@@ -105,9 +105,9 @@ push local 1
 lt
 pop this 7
 push this 7
-if-goto IF_TRUE-voxci1ga
-goto IF_FALSE-hr2s9n9g
-label IF_TRUE-voxci1ga
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push local 0
 pop local 2
 push local 1
@@ -122,8 +122,8 @@ push this 0
 push argument 1
 lt
 pop this 9
-goto IF_END-19ke4km7
-label IF_FALSE-hr2s9n9g
+goto IF_END0
+label IF_FALSE0
 push this 0
 push argument 1
 lt
@@ -132,7 +132,7 @@ push this 1
 push argument 2
 lt
 pop this 9
-label IF_END-19ke4km7
+label IF_END0
 push constant 2
 push local 1
 call Math.multiply 2
@@ -160,142 +160,142 @@ pop temp 0
 push this 4
 push constant 0
 lt
-if-goto IF_TRUE-m2677blk
-goto IF_FALSE-l7wf5l0
-label IF_TRUE-m2677blk
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push this 4
 push this 5
 add
 pop this 4
-goto IF_END-qb76pfrz
-label IF_FALSE-l7wf5l0
+goto IF_END0
+label IF_FALSE0
 push this 4
 push this 6
 add
 pop this 4
 push this 9
-if-goto IF_TRUE-pkzwuvd3
-goto IF_FALSE-m5w2h0zr
-label IF_TRUE-pkzwuvd3
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push this 7
-if-goto IF_TRUE-ct7wkro
-goto IF_FALSE-3y6pws5
-label IF_TRUE-ct7wkro
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push this 0
 push constant 4
 add
 pop this 0
-goto IF_END-qy30rl5a
-label IF_FALSE-3y6pws5
+goto IF_END2
+label IF_FALSE2
 push this 1
 push constant 4
 add
 pop this 1
-label IF_END-qy30rl5a
-goto IF_END-hr2ux33
-label IF_FALSE-m5w2h0zr
+label IF_END2
+goto IF_END1
+label IF_FALSE1
 push this 7
-if-goto IF_TRUE-wnbflmim
-goto IF_FALSE-ewdh6wfy
-label IF_TRUE-wnbflmim
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push this 0
 push constant 4
 sub
 pop this 0
-goto IF_END-ksatmkpy
-label IF_FALSE-ewdh6wfy
+goto IF_END3
+label IF_FALSE3
 push this 1
 push constant 4
 sub
 pop this 1
-label IF_END-ksatmkpy
-label IF_END-hr2ux33
-label IF_END-qb76pfrz
+label IF_END3
+label IF_END1
+label IF_END0
 push this 8
-if-goto IF_TRUE-jjq37wdm
-goto IF_FALSE-6qdn1zuj
-label IF_TRUE-jjq37wdm
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push this 7
-if-goto IF_TRUE-orf6zxtu
-goto IF_FALSE-t06lzldf
-label IF_TRUE-orf6zxtu
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
 push this 1
 push constant 4
 add
 pop this 1
-goto IF_END-swo43e8n
-label IF_FALSE-t06lzldf
+goto IF_END5
+label IF_FALSE5
 push this 0
 push constant 4
 add
 pop this 0
-label IF_END-swo43e8n
-goto IF_END-al9xv2nw
-label IF_FALSE-6qdn1zuj
+label IF_END5
+goto IF_END4
+label IF_FALSE4
 push this 7
-if-goto IF_TRUE-f3saut1r
-goto IF_FALSE-vfz47ulz
-label IF_TRUE-f3saut1r
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
 push this 1
 push constant 4
 sub
 pop this 1
-goto IF_END-e3gl7mzb
-label IF_FALSE-vfz47ulz
+goto IF_END6
+label IF_FALSE6
 push this 0
 push constant 4
 sub
 pop this 0
-label IF_END-e3gl7mzb
-label IF_END-al9xv2nw
+label IF_END6
+label IF_END4
 push this 0
 push this 10
 gt
 not
-if-goto IF_TRUE-90ut9imn
-goto IF_FALSE-7vi3ghvn
-label IF_TRUE-90ut9imn
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
 push constant 1
 pop this 14
 push this 10
 pop this 0
-label IF_FALSE-7vi3ghvn
+label IF_FALSE7
 push this 0
 push this 11
 lt
 not
-if-goto IF_TRUE-23az8tzc
-goto IF_FALSE-tid1uyq5
-label IF_TRUE-23az8tzc
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
 push constant 2
 pop this 14
 push this 11
 pop this 0
-label IF_FALSE-tid1uyq5
+label IF_FALSE8
 push this 1
 push this 12
 gt
 not
-if-goto IF_TRUE-f0s01zpc
-goto IF_FALSE-2amtlmkv
-label IF_TRUE-f0s01zpc
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
 push constant 3
 pop this 14
 push this 12
 pop this 1
-label IF_FALSE-2amtlmkv
+label IF_FALSE9
 push this 1
 push this 13
 lt
 not
-if-goto IF_TRUE-h14q2mzo
-goto IF_FALSE-7vmv2m8v
-label IF_TRUE-h14q2mzo
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
 push constant 4
 pop this 14
 push this 13
 pop this 1
-label IF_FALSE-7vmv2m8v
+label IF_FALSE10
 push pointer 0
 call Ball.show 1
 pop temp 0
@@ -315,13 +315,13 @@ pop local 3
 push argument 1
 push constant 0
 eq
-if-goto IF_TRUE-xefsxqdh
-goto IF_FALSE-z11bv9t4
-label IF_TRUE-xefsxqdh
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push constant 10
 pop local 4
-goto IF_END-b46eat2
-label IF_FALSE-z11bv9t4
+goto IF_END0
+label IF_FALSE0
 push this 2
 push constant 0
 lt
@@ -339,23 +339,23 @@ neg
 eq
 and
 or
-if-goto IF_TRUE-7mpqg1wd
-goto IF_FALSE-anss1wel
-label IF_TRUE-7mpqg1wd
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push constant 20
 pop local 4
-goto IF_END-j16ikc48
-label IF_FALSE-anss1wel
+goto IF_END1
+label IF_FALSE1
 push constant 5
 pop local 4
-label IF_END-j16ikc48
-label IF_END-b46eat2
+label IF_END1
+label IF_END0
 push this 14
 push constant 1
 eq
-if-goto IF_TRUE-wzemhaya
-goto IF_FALSE-jdnmxmhd
-label IF_TRUE-wzemhaya
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push constant 506
 pop local 0
 push local 3
@@ -371,14 +371,14 @@ push local 4
 call Math.multiply 2
 add
 pop local 1
-goto IF_END-rjpop1ax
-label IF_FALSE-jdnmxmhd
+goto IF_END2
+label IF_FALSE2
 push this 14
 push constant 2
 eq
-if-goto IF_TRUE-h0toppvc
-goto IF_FALSE-u1b0h8j
-label IF_TRUE-h0toppvc
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push constant 0
 pop local 0
 push local 3
@@ -393,14 +393,14 @@ push local 4
 call Math.multiply 2
 add
 pop local 1
-goto IF_END-a2hiort3
-label IF_FALSE-u1b0h8j
+goto IF_END3
+label IF_FALSE3
 push this 14
 push constant 3
 eq
-if-goto IF_TRUE-k5suezo3
-goto IF_FALSE-1yid8hu5
-label IF_TRUE-k5suezo3
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push constant 250
 pop local 1
 push local 2
@@ -416,8 +416,8 @@ push local 4
 call Math.multiply 2
 add
 pop local 0
-goto IF_END-76rrdd1t
-label IF_FALSE-1yid8hu5
+goto IF_END4
+label IF_FALSE4
 push constant 0
 pop local 1
 push local 2
@@ -432,9 +432,9 @@ push local 4
 call Math.multiply 2
 add
 pop local 0
-label IF_END-76rrdd1t
-label IF_END-a2hiort3
-label IF_END-rjpop1ax
+label IF_END4
+label IF_END3
+label IF_END2
 push pointer 0
 push local 0
 push local 1

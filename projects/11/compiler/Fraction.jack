@@ -3,20 +3,11 @@ class Fraction {
    field String foo, bar;
    static int count, test;
 
-   method void gcd(int x, int y, int z) {
-      var Point po;
-      var int a,b;
-      var String tee;
-
-    	if (a) {
-        let tee = tee + 1;
-      }
-      else{
-        let po = po + 1;
-      }
-
-
-      return ;
-   }
-
+    function void main() {
+        var Array a, b, c;
+        
+        let a[b[a[3]]] = a[a[5]] * b[((7 - a[3]) - Main.double(2)) + 1]; 
+        return;
+    }
 }
+

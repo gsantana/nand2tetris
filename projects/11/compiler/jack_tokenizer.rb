@@ -1,4 +1,5 @@
 class JackTokenizer
+  attr_reader :characters
   def initialize(source)
     @characters = source.characters
   end
@@ -13,9 +14,18 @@ class JackTokenizer
     found_string = false
     while(!found)
       character =  @characters.shift
-      return nil unless character
 
       token = posible_token
+
+      if character.nil?
+        if posible_token == ""
+          return nil
+        else
+          found = true
+          next
+        end
+      end
+
       posible_token = token + character
       if (posible_token =~  /^class$|^constructor$|^function$|^method$|^field$|^static$|^var$|^int$|^char$|^boolean$|^void$|^true$|^false$|^null$|^this$|^let$|^do$|^if$|^else$|^while$|^return$/  && character != "\n")
         type = :keyword

@@ -51,6 +51,9 @@ class CompilationEngine
                         eat(type + ['void'])
                       end
       symbol_table.set_subroutune_return_type(function_type)
+      if(value == 'method')
+        symbol_table.define('this', symbol_table.class_name, 'argument')
+      end
 
       function_name = eat_identifier
       eat('(')
@@ -84,11 +87,11 @@ class CompilationEngine
 
   def compile_subroutine_body(routine, function_name)
     eat('{')
+
     compile_var_dec
     nlocals = symbol_table.var_count('local')
     vm_writer.write_function("#{symbol_table.class_name}.#{function_name}", nlocals)
     if(routine == 'method')
-      symbol_table.define('this', symbol_table.class_name, 'argument')
       vm_writer.write_push('argument',0)
       vm_writer.write_pop('pointer',0)
     end
@@ -143,15 +146,13 @@ class CompilationEngine
       value = eat_identifier
       symbol = symbol_table.symbol(value)
       if(can_eat?('['))
-        vm_writer.write_push symbol.segment, symbol.index
         eat('[')
         compile_expression
+        vm_writer.write_push symbol.segment, symbol.index
         eat(']')
         vm_writer.write_arithmetic "add"
         eat('=')
         compile_expression
-        vm_writer.write_pop 'pointer', 1
-        vm_writer.write_push 'that', 0
         vm_writer.write_pop 'temp', 0
         vm_writer.write_pop 'pointer', 1
         vm_writer.write_push 'temp', 0
@@ -170,7 +171,6 @@ class CompilationEngine
       eat('if')
       eat('(')
       compile_expression
-      # vm_writer.write_arithmetic "not"
       label_true = "IF_TRUE-#{uniqueKey}"
       vm_writer.write_ifgoto(label_true)
       label_false = "IF_FALSE-#{uniqueKey}"
@@ -275,7 +275,13 @@ class CompilationEngine
       value = write_and_advance
       vm_writer.write_push('constant', value)
     elsif(current_token.type == :string_constant)
-      write_and_advance
+      value = write_and_advance
+      vm_writer.write_push 'constant', value.length
+      vm_writer.write_call 'String.new', 1
+      value.each_byte do |c|
+        vm_writer.write_push 'constant', c
+        vm_writer.write_call 'String.appendChar', 2
+      end
     elsif(can_eat?(keyword_constant))
       if current_token.value == 'this'
         vm_writer.write_push 'pointer', 0
@@ -301,11 +307,13 @@ class CompilationEngine
       advance
 
       if(can_eat?('['))
-        vm_writer.write_push symbol.segment, symbol.index
         eat('[')
         compile_expression
         eat(']')
+        vm_writer.write_push symbol.segment, symbol.index
         vm_writer.write_arithmetic "add"
+        vm_writer.write_pop "pointer", 1
+        vm_writer.write_push "that", 0
       elsif(can_eat?('('))
         vm_writer.write_push 'pointer', 0
         eat('(')

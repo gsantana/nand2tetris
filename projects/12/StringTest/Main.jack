@@ -10,7 +10,6 @@ class Main {
     function void main() {
         var String s;
         var String i;
-        
         let s = String.new(0); // a zero-capacity string should be supported
         do s.dispose();
 
@@ -29,6 +28,7 @@ class Main {
         do Output.printString("setInt: ");
         do Output.printString(i);                // setInt: 12345
         do Output.println();
+       /* 
 
         do i.setInt(-32767);
         do Output.printString("setInt: ");
@@ -77,6 +77,7 @@ class Main {
         
         do i.dispose();
         do s.dispose();
+        */
 
         return;
     }

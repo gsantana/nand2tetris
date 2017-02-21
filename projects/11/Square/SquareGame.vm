@@ -28,43 +28,43 @@ pop pointer 0
 push this 1
 push constant 1
 eq
-if-goto IF_TRUE-ygk6tlcs
-goto IF_FALSE-dwmw48h2
-label IF_TRUE-ygk6tlcs
+if-goto IF_TRUE-ks2vji4p
+goto IF_FALSE-3md1m3db
+label IF_TRUE-ks2vji4p
 push this 0
 call Square.moveUp 1
 pop temp 0
-label IF_FALSE-dwmw48h2
+label IF_FALSE-3md1m3db
 push this 1
 push constant 2
 eq
-if-goto IF_TRUE-iy5h9ftq
-goto IF_FALSE-ggrrbz6g
-label IF_TRUE-iy5h9ftq
+if-goto IF_TRUE-unrl71n
+goto IF_FALSE-pr1zqmqg
+label IF_TRUE-unrl71n
 push this 0
 call Square.moveDown 1
 pop temp 0
-label IF_FALSE-ggrrbz6g
+label IF_FALSE-pr1zqmqg
 push this 1
 push constant 3
 eq
-if-goto IF_TRUE-4gt9rijr
-goto IF_FALSE-a9xbrjfw
-label IF_TRUE-4gt9rijr
+if-goto IF_TRUE-5pocy1qp
+goto IF_FALSE-7rmslz8i
+label IF_TRUE-5pocy1qp
 push this 0
 call Square.moveLeft 1
 pop temp 0
-label IF_FALSE-a9xbrjfw
+label IF_FALSE-7rmslz8i
 push this 1
 push constant 4
 eq
-if-goto IF_TRUE-d3er7cxt
-goto IF_FALSE-y0nffewn
-label IF_TRUE-d3er7cxt
+if-goto IF_TRUE-nld24gyf
+goto IF_FALSE-cwmp9xcj
+label IF_TRUE-nld24gyf
 push this 0
 call Square.moveRight 1
 pop temp 0
-label IF_FALSE-y0nffewn
+label IF_FALSE-cwmp9xcj
 push constant 5
 call Sys.wait 1
 pop temp 0
@@ -75,105 +75,105 @@ push argument 0
 pop pointer 0
 push constant 0
 pop local 1
-label WHILE_EXP-2q8iwof3
+label WHILE_EXP-rq86j62q
 push local 1
 not
 not
-if-goto WHILE_END-u14op378
-label WHILE_EXP-e1xfpzua
+if-goto WHILE_END-93ok6npk
+label WHILE_EXP-eowaayq5
 push local 0
 push constant 0
 eq
 not
-if-goto WHILE_END-fq1rq4un
+if-goto WHILE_END-tz13o0dw
 call Keyboard.keyPressed 0
 pop local 0
 push pointer 0
 call SquareGame.moveSquare 1
 pop temp 0
-goto WHILE_EXP-e1xfpzua
-label WHILE_END-fq1rq4un
+goto WHILE_EXP-eowaayq5
+label WHILE_END-tz13o0dw
 push local 0
 push constant 81
 eq
-if-goto IF_TRUE-nk4q0xk
-goto IF_FALSE-k5j3m19o
-label IF_TRUE-nk4q0xk
+if-goto IF_TRUE-w7smaweq
+goto IF_FALSE-y1in52c8
+label IF_TRUE-w7smaweq
 push constant 0
 not
 pop local 1
-label IF_FALSE-k5j3m19o
+label IF_FALSE-y1in52c8
 push local 0
 push constant 90
 eq
-if-goto IF_TRUE-91cuvc0k
-goto IF_FALSE-7e7vufc9
-label IF_TRUE-91cuvc0k
+if-goto IF_TRUE-nsqiecrh
+goto IF_FALSE-xevuuapf
+label IF_TRUE-nsqiecrh
 push this 0
 call Square.decSize 1
 pop temp 0
-label IF_FALSE-7e7vufc9
+label IF_FALSE-xevuuapf
 push local 0
 push constant 88
 eq
-if-goto IF_TRUE-7b4cwze7
-goto IF_FALSE-w3r49kal
-label IF_TRUE-7b4cwze7
+if-goto IF_TRUE-wuey18fc
+goto IF_FALSE-sgr3vjfc
+label IF_TRUE-wuey18fc
 push this 0
 call Square.incSize 1
 pop temp 0
-label IF_FALSE-w3r49kal
+label IF_FALSE-sgr3vjfc
 push local 0
 push constant 131
 eq
-if-goto IF_TRUE-xau9agmb
-goto IF_FALSE-ncyzpen1
-label IF_TRUE-xau9agmb
+if-goto IF_TRUE-haxkmugf
+goto IF_FALSE-k7tk0j3b
+label IF_TRUE-haxkmugf
 push constant 1
 pop this 1
-label IF_FALSE-ncyzpen1
+label IF_FALSE-k7tk0j3b
 push local 0
 push constant 133
 eq
-if-goto IF_TRUE-9oh2jd8r
-goto IF_FALSE-rxxpwz81
-label IF_TRUE-9oh2jd8r
+if-goto IF_TRUE-8hm5j3ew
+goto IF_FALSE-owc5rxwt
+label IF_TRUE-8hm5j3ew
 push constant 2
 pop this 1
-label IF_FALSE-rxxpwz81
+label IF_FALSE-owc5rxwt
 push local 0
 push constant 130
 eq
-if-goto IF_TRUE-76ijv3i5
-goto IF_FALSE-nb4mknjt
-label IF_TRUE-76ijv3i5
+if-goto IF_TRUE-u7wnfg2j
+goto IF_FALSE-mc1aymk1
+label IF_TRUE-u7wnfg2j
 push constant 3
 pop this 1
-label IF_FALSE-nb4mknjt
+label IF_FALSE-mc1aymk1
 push local 0
 push constant 132
 eq
-if-goto IF_TRUE-74w4uvij
-goto IF_FALSE-fop7h0eg
-label IF_TRUE-74w4uvij
+if-goto IF_TRUE-cydb3y3i
+goto IF_FALSE-kt9nsw07
+label IF_TRUE-cydb3y3i
 push constant 4
 pop this 1
-label IF_FALSE-fop7h0eg
-label WHILE_EXP-45nzeqob
+label IF_FALSE-kt9nsw07
+label WHILE_EXP-d05yeq0g
 push local 0
 push constant 0
 eq
 not
 not
-if-goto WHILE_END-2slwtj3w
+if-goto WHILE_END-b3lcxhj3
 call Keyboard.keyPressed 0
 pop local 0
 push pointer 0
 call SquareGame.moveSquare 1
 pop temp 0
-goto WHILE_EXP-45nzeqob
-label WHILE_END-2slwtj3w
-goto WHILE_EXP-2q8iwof3
-label WHILE_END-u14op378
+goto WHILE_EXP-d05yeq0g
+label WHILE_END-b3lcxhj3
+goto WHILE_EXP-rq86j62q
+label WHILE_END-93ok6npk
 push constant 0
 return

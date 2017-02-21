@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'pry-byebug'
+# require 'pry-byebug'
 require_relative 'source'
 require_relative 'jack_tokenizer'
 require_relative 'token'
