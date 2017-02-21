@@ -11,33 +11,74 @@
  */
 class Screen {
 
+    static boolean color;
+    static Array toToThe;
+
     /** Initializes the Screen. */
     function void init() {
+      let color = true;
+      let toToThe = Array.new(16);
+      let toToThe[0] = 1;
+      let toToThe[1] = 2;
+      let toToThe[2] = 4;
+      let toToThe[3] = 8;
+      let toToThe[4] = 16;
+      let toToThe[5] = 32;
+      let toToThe[6] = 64;
+      let toToThe[7] = 128;
+      let toToThe[8] = 256;
+      let toToThe[9] = 512;
+      let toToThe[10] = 1024;
+      let toToThe[11] = 2048;
+      let toToThe[12] = 4096;
+      let toToThe[13] = 8192;
+      let toToThe[14] = 16384;
+      let toToThe[15] = 32767 + 1;
+      return;
     }
 
     /** Erases the entire screen. */
     function void clearScreen() {
+      return;
     }
 
     /** Sets the current color, to be used for all subsequent drawXXX commands.
      *  Black is represented by true, white by false. */
     function void setColor(boolean b) {
+      let color = b;
+      return;
     }
 
     /** Draws the (x,y) pixel, using the current color. */
     function void drawPixel(int x, int y) {
+      var int addr, value, mod;
+
+      let addr = (32 * y) + (x / 16);
+      let value = Memory.peek(16384 + addr);
+      let mod = (x - ((x/16) * 16));
+      if(color){
+        let value = value | toToThe[mod];
+      }
+      else{
+        let value = value & (~toToThe[mod]);
+      }
+      do Memory.poke(16384 + addr, value);
+      return;
     }
 
     /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
     function void drawLine(int x1, int y1, int x2, int y2) {
+      return;
     }
 
     /** Draws a filled rectangle whose top left corner is (x1, y1)
      * and bottom right corner is (x2,y2), using the current color. */
     function void drawRectangle(int x1, int y1, int x2, int y2) {
+      return;
     }
 
     /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
     function void drawCircle(int x, int y, int r) {
+      return;
     }
 }

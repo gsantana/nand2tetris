@@ -63,8 +63,16 @@ class String {
      *  until a non-digit character is detected. */
     method int intValue() {
       var int val, cont, d;
+      var boolean neg;
       let val = 0;
-      let cont = 0;
+      if(str[0] = 45){
+        let cont = 1;
+        let neg = true;
+      }
+      else{
+        let cont = 0;
+        let neg = false;
+      }
 
       while(cont < length){
         let d = str[cont] - 48;
@@ -72,12 +80,24 @@ class String {
         let cont = cont + 1;
       }
 
-      return val;
+      if(neg){
+        return -val;
+      }
+      else{
+        return val;
+      }
     }
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
-      do String.int2String(val, this);
+      var int tempVar;
+      let length = 0;
+      let tempVar = Math.abs(val);
+      if(val < 0){
+        do appendChar(45);
+      }
+
+      do String.int2String(tempVar, this);
       return;
     }
 
@@ -88,11 +108,11 @@ class String {
       let c = 48 + mod;
 
       if(val < 10){
-        do str.appendChar(c);
-        return str;
+        return str.appendChar(c);
       }
       else{
-        do String.int2String(val/10, str.appendChar(c));
+        do String.int2String(val/10, str);
+        do str.appendChar(c);
       }
 
       return str;
