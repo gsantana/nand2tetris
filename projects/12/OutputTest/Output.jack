@@ -77,7 +77,7 @@ class Output {
     do Output.create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
     do Output.create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
 
-    do Output.create(65,0,0,0,0,0,0,0,0,0,0,0);          // A ** TO BE FILLED **
+    do Output.create(65,12,30,51,51,63,51,51,51,51,0,0);          // A ** TO BE FILLED **
     do Output.create(66,31,51,51,51,31,51,51,51,31,0,0); // B
     do Output.create(67,28,54,35,3,3,3,35,54,28,0,0);    // C
     do Output.create(68,15,27,51,51,51,51,51,27,15,0,0); // D
@@ -205,32 +205,31 @@ class Output {
 
      let mod = (x - ((x/2) * 2));
 
-     do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & mask) | first);
       if(mod = 1){
-        do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & (-256) | (charMap[0] * 256)));
-        do Memory.poke(memAddress+32, charMap[1] * 256);
-        do Memory.poke(memAddress+64, charMap[2] * 256);
-        do Memory.poke(memAddress+96, charMap[3] * 256);
-        do Memory.poke(memAddress+128, charMap[4] * 256);
-        do Memory.poke(memAddress+160, charMap[5] * 256);
-        do Memory.poke(memAddress+192, charMap[6] * 256);
-        do Memory.poke(memAddress+224, charMap[7] * 256);
-        do Memory.poke(memAddress+256, charMap[8] * 256);
-        do Memory.poke(memAddress+288, charMap[9] * 256);
-        do Memory.poke(memAddress+320, charMap[10] * 256);
+        do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & (255) | (charMap[0] * 256)));
+        do Memory.poke(memAddress+32, (Memory.peek(memAddress+32) & (255) | (charMap[1] * 256)));
+        do Memory.poke(memAddress+64, (Memory.peek(memAddress+64) & (255) | (charMap[2] * 256)));
+        do Memory.poke(memAddress+96, (Memory.peek(memAddress+96) & (255) | (charMap[3] * 256)));
+        do Memory.poke(memAddress+128, (Memory.peek(memAddress+128) & (255) | (charMap[4] * 256)));
+        do Memory.poke(memAddress+160, (Memory.peek(memAddress+160) & (255) | (charMap[5] * 256)));
+        do Memory.poke(memAddress+192, (Memory.peek(memAddress+192) & (255) | (charMap[6] * 256)));
+        do Memory.poke(memAddress+224, (Memory.peek(memAddress+224) & (255) | (charMap[7] * 256)));
+        do Memory.poke(memAddress+256, (Memory.peek(memAddress+256) & (255) | (charMap[8] * 256)));
+        do Memory.poke(memAddress+288, (Memory.peek(memAddress+288) & (255) | (charMap[9] * 256)));
+        do Memory.poke(memAddress+320, (Memory.peek(memAddress+230) & (255) | (charMap[10] * 256)));
      }
      else{
-        do Memory.poke(memAddress+0, charMap[0]);
-        do Memory.poke(memAddress+32, charMap[1]);
-        do Memory.poke(memAddress+64, charMap[2]);
-        do Memory.poke(memAddress+96, charMap[3]);
-        do Memory.poke(memAddress+128, charMap[4]);
-        do Memory.poke(memAddress+160, charMap[5]);
-        do Memory.poke(memAddress+192, charMap[6]);
-        do Memory.poke(memAddress+224, charMap[7]);
-        do Memory.poke(memAddress+256, charMap[8]);
-        do Memory.poke(memAddress+288, charMap[9]);
-        do Memory.poke(memAddress+320, charMap[10]);
+        do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & (-256) | charMap[0]));
+        do Memory.poke(memAddress+32, (Memory.peek(memAddress+32) & (-256) | charMap[1]));
+        do Memory.poke(memAddress+64, (Memory.peek(memAddress+64) & (-256) | charMap[2]));
+        do Memory.poke(memAddress+96, (Memory.peek(memAddress+96) & (-256) | charMap[3]));
+        do Memory.poke(memAddress+128, (Memory.peek(memAddress+128) & (-256) | charMap[4]));
+        do Memory.poke(memAddress+160, (Memory.peek(memAddress+160) & (-256) | charMap[5]));
+        do Memory.poke(memAddress+192, (Memory.peek(memAddress+192) & (-256) | charMap[6]));
+        do Memory.poke(memAddress+224, (Memory.peek(memAddress+224) & (-256) | charMap[7]));
+        do Memory.poke(memAddress+256, (Memory.peek(memAddress+256) & (-256) | charMap[8]));
+        do Memory.poke(memAddress+288, (Memory.peek(memAddress+288) & (-256) | charMap[9]));
+        do Memory.poke(memAddress+320, (Memory.peek(memAddress+230) & (-256) | charMap[10]));
      }
     return;
   }
@@ -252,16 +251,23 @@ class Output {
   /** Displays the given integer starting at the cursor location,
    *  and advances the cursor appropriately. */
   function void printInt(int i) {
+    var String s;
+    let s = String.new(100);
+    do s.setInt(i);
+    do Output.printString(s);
     return;
   }
 
   /** Advances the cursor to the beginning of the next line. */
   function void println() {
+    let cursor[1] =  cursor[1] + 1;
+    let cursor[0] =  0;
     return;
   }
 
   /** Moves the cursor one column back. */
   function void backSpace() {
+    let cursor[0] = cursor[0] - 1;
     return;
   }
 }

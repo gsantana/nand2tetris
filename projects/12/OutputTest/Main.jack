@@ -10,13 +10,6 @@ class Main {
      *  methods of the Output class. */
     function void main() {
 
-        //do Output.moveCursor(0, 0);
-        do Output.printChar(66);
-        //do Output.printChar(67);
-        //do Output.printChar(68);
-        //do Output.printString("ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz");
-        //do Output.printString("0123456789");
-    /*
         var String s;
     
     	let s = String.new(1);
@@ -44,7 +37,6 @@ class Main {
         do Output.printInt(-12345);
         do Output.backSpace();
         do Output.printInt(6789);
-        */
         
         return;
     }
