@@ -207,7 +207,7 @@ class Output {
 
      do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & mask) | first);
       if(mod = 1){
-        do Memory.poke(memAddress+0, charMap[0] * 256);
+        do Memory.poke(memAddress+0, (Memory.peek(memAddress+0) & (-256) | (charMap[0] * 256)));
         do Memory.poke(memAddress+32, charMap[1] * 256);
         do Memory.poke(memAddress+64, charMap[2] * 256);
         do Memory.poke(memAddress+96, charMap[3] * 256);
