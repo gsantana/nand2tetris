@@ -9,26 +9,80 @@
  * consists of 32,768 words, each holding a 16-bit binary number.
  */ 
 class Memory {
+    
+    static Array ram;
+    static Array heap;
+    static Array freeList;
 
     /** Initializes the class. */
     function void init() {
+      let ram = 0;
+      let freeList = 2048;
+      let heap = 2048;
+      let heap[0] = 0;
+      let heap[1] = 14335;
+      return;
     }
 
     /** Returns the RAM value at the given address. */
     function int peek(int address) {
+      return ram[address];
     }
 
     /** Sets the RAM value at the given address to the given value. */
     function void poke(int address, int value) {
+      let ram[address] = value;
+      return;
     }
 
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
+      var Array seg, foundSeg;
+      var int lengthSeg, totalSize;
+      var boolean found;
+
+      let found = false;
+      let seg = heap;
+      let totalSize = size + 2;
+
+      while(~found){
+        let lengthSeg = seg[1];
+
+        if((lengthSeg > totalSize) | (lengthSeg = totalSize)){
+          let found = true;
+          let seg[1] = lengthSeg - totalSize;
+          let foundSeg = seg + lengthSeg - size;
+          let foundSeg[0] = 0;
+          let foundSeg[1] = size;
+        }
+        else{
+          if(seg[0] = 0){
+         //   do Sys.halt();
+          }
+
+          let seg = seg[0];
+        }
+      }
+
+      return foundSeg + 2;
     }
 
     /** De-allocates the given object (cast as an array) by making
      *  it available for future allocations. */
     function void deAlloc(Array o) {
+      var Array seg;
+      var boolean found;
+      let seg = heap;
+      while(~found){
+        if(seg[0] = 0){
+          let found = true;
+          let seg[0] = o - 2;
+        }
+        else{
+          let seg = seg[0];
+        }
+      }
+      return;
     }    
 }

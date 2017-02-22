@@ -9,9 +9,10 @@
  */
 class Math {
 
+    static Array toToThe;
+
     /** Initializes the library. */
     function void init() {
-      var Array toToThe;
       let toToThe = Array.new(16);
       let toToThe[0] = 1;
       let toToThe[1] = 2;
@@ -23,16 +24,21 @@ class Math {
       let toToThe[7] = 128;
       let toToThe[8] = 256;
       let toToThe[9] = 512;
-      let toToThe[10] = 1014;
-      let toToThe[11] = 2028;
+      let toToThe[10] = 1024;
+      let toToThe[11] = 2048;
       let toToThe[12] = 4096;
       let toToThe[13] = 8192;
       let toToThe[14] = 16384;
-      let toToThe[15] = 32768;
+      let toToThe[15] = 32767 + 1;
+      return;
     }
 
     /** Returns the absolute value of x. */
     function int abs(int x) {
+     if(x < 0){
+      return - x;
+     }
+     return x ;
     }
 
     /** Returns the product of x and y.
@@ -48,18 +54,18 @@ class Math {
       let cont = 0;
 
       while(cont < 16) {
-        if(bit(y,cont) = 1) {
+        if(Math.bit(y,cont)) {
           let sum = sum + shiftedX;
         }
-
         let shiftedX = shiftedX + shiftedX;
+        let cont = cont + 1;
       }
 
       return sum;
     }
 
     function boolean bit(int x, int i){
-      return (x & toToThe[i]) > 0;
+      return ~ ((x & toToThe[i]) = 0);
     }
 
     /** Returns the integer part of x/y.
@@ -68,17 +74,86 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
+      var int q, absX, absY;
+      var boolean resultSign;
+      let absX = Math.abs(x);
+      let absY = Math.abs(y);
+      let q = 0;
+
+      if( ( x < 0) | (y < 0)){
+        let resultSign = false;
+      }
+      else{
+        let resultSign = true;
+      }
+
+      let q = Math.absdivide(absX, absY);
+
+      if( q = 0) {
+        return 0;
+      }
+
+      if(resultSign){
+        return q;
+      }
+      else{
+        return - q;
+      }
     }
 
+    function int absdivide(int x, int y) {
+      var int q;
+      var boolean resultSign;
+      let q = 0;
+
+      if ((y > x) | (y < 0)){
+        return 0;
+      }
+
+      let q = Math.absdivide(x, 2 * y);
+      if((x - (2 * q * y)) < y){
+        return 2 * q;
+      }
+      else{
+        return (2 * q) + 1;
+      }
+    }
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
+     var int y, cont, aux, sqrAux;
+     let y = 0;
+     let cont = 7;
+
+     while(cont > -1){
+
+       let aux = y + toToThe[cont];
+       let sqrAux = aux * aux;
+       if(((sqrAux  <  x) | (sqrAux = x)) & sqrAux > 0 ){
+         let y = aux;
+       }
+       let cont = cont - 1;
+     }
+
+     return y ;
     }
 
     /** Returns the greater number. */
     function int max(int a, int b) {
+      if( a > b){
+        return a;
+      }
+      else{
+        return b;
+      }
     }
 
     /** Returns the smaller number. */
     function int min(int a, int b) {
+      if( a < b){
+        return a;
+      }
+      else{
+        return b;
+      }
     }
 }
